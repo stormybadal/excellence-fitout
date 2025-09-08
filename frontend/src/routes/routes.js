@@ -1,0 +1,42 @@
+export const routes = [
+  {
+    path: "/",
+    name: "Home",
+    showInNavbar: true,
+    icon: null,
+    protected: false,
+    role: ["user", "admin"],
+  },
+  {
+    path: "/about",
+    name: "About",
+    showInNavbar: true,
+    icon: null,
+    protected: false,
+    role: ["user", "admin"],
+  },
+  {
+    path: "/portfolio",
+    name: "Portfolio",
+    showInNavbar: true,
+    icon: null,
+    protected: false,
+    role: ["user", "admin"],
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    showInNavbar: true,
+    icon: null,
+    protected: false,
+    role: ["user", "admin"],
+  },
+  // {
+  //   path: "/in",
+  //   name: "Login",
+  //   showInNavbar: false,
+  //   icon: null,
+  //   protected: false,
+  //   role: ["user", "admin"],
+  // },
+];
