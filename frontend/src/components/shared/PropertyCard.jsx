@@ -8,7 +8,7 @@ const PropertyCard = ({ data }) => {
         src={data.image}
         alt={data.title}
       />
-      <div className="p-4">
+      <div className="p-4 text-start">
         <h2 className="text-lg font-semibold text-gray-800">{data.title}</h2>
         <p className="text-sm text-gray-600 mt-2">{data.description}</p>
       </div>
