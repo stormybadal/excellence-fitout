@@ -14,11 +14,14 @@ const RootLayout = () => {
       }
     >
       <div className="flex min-h-screen flex-col bg-white text-black">
-        <main className="flex-1">
-         <Navbar/>
+        {/* Navbar should be outside <main> */}
+        <Navbar />
+
+        <main className="flex-1 pt-[72px] md:pt-[80px]">
           <Outlet />
-          <Footer/>
         </main>
+
+        <Footer />
       </div>
     </Suspense>
   );
