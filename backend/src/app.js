@@ -6,6 +6,7 @@ import cors from "cors";
 
 // Routers
 import authRouter from "./routes/auth.route.js";
+import blogRouter from "./routes/blog.route.js";
 
 /**
  * @module app
@@ -31,12 +32,13 @@ app.use(
 );
 
 // Configure express middlewares
-app.use(express.json({ limit: "16kb" })); // accept json
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(express.json()); // accept json
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
 // Routes declaration
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/blog", blogRouter);
 
 export { app };
