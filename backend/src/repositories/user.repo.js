@@ -7,7 +7,7 @@ import { User } from "../models/user.model.js";
  * Includes:
  * - update: Update a user entry in the database
  * - findByEmail: Find a user entry by email
- * - findByID: Find a user entry by id
+ * - findById: Find a user entry by id
  */
 export class UserRepo {
   constructor(model = User) {
@@ -24,7 +24,7 @@ export class UserRepo {
   }
 
   // Find a user entry by id
-  async findByID(id) {
+  async findById(id) {
     return await this.model.findById(id);
   }
 }

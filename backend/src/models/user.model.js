@@ -15,7 +15,7 @@ import mongoose from "mongoose";
  */
 const userSchema = new mongoose.Schema(
   {
-    displayName: {
+    fullname: {
       type: String,
       required: true,
       trim: true,
@@ -64,8 +64,7 @@ userSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
       _id: this._id,
-      firstName: this.firstName,
-      lastName: this.lastName,
+      fullname: this.fullname,
       email: this.email,
     },
     process.env.ACCESS_TOKEN_SECRET,
@@ -74,7 +73,7 @@ userSchema.methods.generateAccessToken = function () {
 };
 
 // Generate refresh token
-userSchema.methods.generateRefreshToken = async function () {
+userSchema.methods.generateRefreshToken = function () {
   const token = jwt.sign({ _id: this._id }, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "7d",
   });

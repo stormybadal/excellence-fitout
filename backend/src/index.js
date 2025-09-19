@@ -18,13 +18,13 @@ dotenv.config({ path: "./.env" });
 // Connect DB with server
 connectDB()
   .then(() => {
-    const port = process.env.PORT || 8000;
+    const port = process.env.PORT || 8080;
     app.listen(port, () => {
-      console.log(`🚀🚀🚀 Server is running on port ${port}`);
+      console.log(`🚀 Server is running on port ${port}`);
     });
   })
   .catch((err) => {
-    console.error("❌❌❌ Server failed to start due to database connection issue", {
+    console.error("❌ Server failed to start due to database connection issue", {
       stack: err.stack,
     });
   });
