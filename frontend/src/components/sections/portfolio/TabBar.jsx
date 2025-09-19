@@ -41,7 +41,7 @@ function TabBar() {
           {services.map((service) => (
             <button
               key={service}
-              className="hover:text-orange-500 transition-all duration-200 whitespace-nowrap"
+              className="hover:text-orange-500 transition-all duration-200 whitespace-nowrap cursor-pointer"
             >
               {service}
             </button>

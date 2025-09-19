@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "../components/sections/homePage/Hero";
 import ContactForm from "../components/sections/homePage/ContactForm";
 import About from "../components/sections/homePage/About";
@@ -10,6 +10,10 @@ import Blog from "../components/sections/homePage/Blog";
 import Clients from "../components/sections/homePage/Clients";
 
 function Home() {
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
   return (
     <div className="space-y-16">
       <Hero />

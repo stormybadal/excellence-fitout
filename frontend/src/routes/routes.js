@@ -32,6 +32,22 @@ export const routes = [
     role: ["user", "admin"],
   },
   {
+    path: "/blog",
+    name: "Blog",
+    showInNavbar: true,
+    icon: null,
+    protected: false,
+    role: ["user", "admin"],
+  },
+  {
+    path: "/blog/$slug",
+    name: "BlogDetails",
+    icon: null,
+    showInNavbar: false,
+    protected: false,
+    role: ["user", "admin"],
+  },
+  {
     path: "/contact",
     name: "Contact",
     showInNavbar: true,

@@ -1,19 +1,44 @@
-import React from 'react'
-import AboutHero from '../components/sections/aboutPage/AboutHero'
+import React, { useEffect } from 'react'
 import OurStory from '../components/sections/aboutPage/OurStory'
 import MissionVision from '../components/sections/aboutPage/MissionVission'
 import Team from '../components/sections/aboutPage/Team'
 import Certifications from '../components/sections/aboutPage/Certifications'
-import WorkWithUs from '../components/sections/aboutPage/WorkWithUs'
+import PageHeader from '../components/shared/PageHeader'
+import aboutHeroBG from '../assets/aboutPage/aboutHeroBG.webp'
+import GetStartedSection from '../components/shared/GetStartedSection'
 function About() {
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
   return (
 <>
-<AboutHero/>
+ <PageHeader
+      bgImage={aboutHeroBG}
+      heading="About"
+      subheading="Dubai Construction Pro"
+      description="Building the future of Dubai with innovative construction solutions and exceptional craftsmanship since 2010"
+    />
 <OurStory/>
 <MissionVision/>
 <Team/>
 <Certifications/>
-<WorkWithUs/>
+
+<GetStartedSection
+  heading="Ready to Work"
+  subheading="With Us?"
+  description="Join hundreds of satisfied clients who have trusted us with their construction and interior projects"
+  buttonOne={{
+    show: false,
+    text: "",
+    link: "",
+    icon: true
+  }}
+  buttonTwo={{
+    show: true,
+    text: "Start Your Project Today",
+    link: "#projects"
+  }}
+/>
 </>
   )
 }

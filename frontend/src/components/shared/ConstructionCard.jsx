@@ -46,7 +46,7 @@ const ConstructionCard = ({ data }) => {
         {linkText && (
           <a
             onClick={() => navigate({ to: "/portfolio/$slug", params: { slug: id } })}
-            className={`font-semibold ${accentColor} hover:underline`}
+            className={`font-semibold ${accentColor} hover:underline cursor-pointer`}
           >
             {linkText}
           </a>

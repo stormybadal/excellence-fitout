@@ -1,5 +1,6 @@
 import React from 'react'
 import PropertyCard from '../../shared/PropertyCard';
+import Heading from '../../shared/Heading'
 const properties = [
   {
     title: "Luxury Villa - Emirates Hills",
@@ -42,38 +43,13 @@ const Experties = () => {
           Featured Projects
         </div>
 
-  <h2 className="text-4xl font-extrabold text-gray-900 mb-2">
-          Showcasing Our{" "}
-          <span className="text-yellow-300">
+<Heading  title="Showcasing Our" highlight="Expertise" description="Showcasing our expertise across different project types"   addBreakLine={true}/> 
 
-            Expertise
-          </span>
-        </h2>
-        {/* Subheading */}
-        <p className="text-gray-700 mb-12 text-sm sm:text-base">
-          Showcasing our expertise across different project types
-        </p>
+
 
         {/* Cards */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {/* {projects.map((project, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 text-left"
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-60 object-cover"
-              />
-              <div className="p-5">
-                <h3 className="font-bold text-lg text-gray-900 mb-1">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600 text-sm">{project.description}</p>
-              </div>
-            </div>
-          ))} */}
+          
 
 {properties.map((property, index) => (
     <PropertyCard key={index} data={property} />
