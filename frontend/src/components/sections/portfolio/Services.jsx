@@ -98,15 +98,17 @@ const Services = () => {
   return (
     <section className="px-4 py-20">
       <div className="mx-auto max-w-7xl text-center">
-        {/* Heading */}
-        <h2 className="mb-2 text-4xl font-extrabold text-gray-900">
-          Our <span className="text-yellow-300">Services</span>
-        </h2>
+        
 
-        {/* Subheading */}
-        <p className="mb-12 text-sm text-gray-700 sm:text-base">
-          Showcasing our expertise across different project types
-        </p>
+        
+ <div className="max-w-6xl mx-auto text-center mb-12">
+        <h2 className="text-5xl font-bold text-black">
+            Our <br/>
+          <span className="text-orange-500">Services</span>
+        </h2>
+        <p className="text-gray-600 mt-2">          Showcasing our expertise across different project types
+</p>
+      </div>
 
         {/* Cards */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

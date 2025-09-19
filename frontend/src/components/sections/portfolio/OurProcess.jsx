@@ -1,4 +1,5 @@
 import React from 'react'
+import Heading from '../../shared/Heading'
 const steps = [
   {
     number: "1",
@@ -30,11 +31,9 @@ const OurProcess = () => {
   return (
     <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-20 px-4">
       <div className="max-w-6xl mx-auto text-center">
-        {/* Section Title */}
-        <h2 className="text-4xl font-bold mb-2">
-          Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">Process</span>
-        </h2>
-        <p className="text-lg text-blue-100 mb-12">How we deliver exceptional results</p>
+
+<Heading  title="Our" highlight="Process" description="How we deliver exceptional results"/> 
+
 
         {/* Steps */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">

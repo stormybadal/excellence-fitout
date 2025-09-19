@@ -1,4 +1,5 @@
 import React from 'react';
+import Heading from '../../shared/Heading.Jsx';
 
 const certifications = [
   {
@@ -26,14 +27,8 @@ const certifications = [
 const Certifications = () => {
   return (
     <section className="py-16 px-4 bg-white text-gray-800">
-      <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 className="text-5xl font-bold text-black">
-          Certifications & <br/> <span className="text-orange-500">Accreditations</span>
-        </h2>
-        <p className="text-gray-600 mt-4">
-          Recognized for our commitment to quality and safety
-        </p>
-      </div>
+
+<Heading  title="Certifications &" highlight="Accreditations" description="Recognized for our commitment to quality and safety"   addBreakLine={true}/> 
 
       <div className="p-8 grid sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {certifications.map((cert, index) => (
