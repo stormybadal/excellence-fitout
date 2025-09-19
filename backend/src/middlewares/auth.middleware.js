@@ -7,7 +7,14 @@ import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/apiError.util.js";
 import { asyncHandler } from "../utils/asyncHandler.util.js";
 
-// Middleware to verify JWT
+/**
+ * @module middlewares/auth
+ * Middleware to verify and attach user to request object.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Function} next - Express next middleware function.
+ */
+
 export const verifyJwt = asyncHandler(async (req, _, next) => {
   try {
     // Get token from cookies or authorization header
