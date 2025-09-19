@@ -1,8 +1,11 @@
-import React from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 const ConstructionCard = ({ data }) => {
+  const navigate = useNavigate();
+
   // Extract props
   const {
+    id,
     image,
     title,
     description,
@@ -13,28 +16,24 @@ const ConstructionCard = ({ data }) => {
   } = data;
 
   return (
-    <div className="max-w-sm rounded-2xl shadow-md overflow-hidden bg-white">
+    <div className="max-w-sm overflow-hidden rounded-2xl bg-white shadow-md">
       {/* Image with icon overlay */}
       <div className="relative">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-48 object-cover"
-        />
+        <img src={image} alt={title} className="h-48 w-full object-cover" />
         {Icon && (
-          <div className="absolute top-3 left-3 bg-white p-2 rounded-lg shadow">
-            <Icon className="text-gray-700 text-lg" />
+          <div className="absolute top-3 left-3 rounded-lg bg-white p-2 shadow">
+            <Icon className="text-lg text-gray-700" />
           </div>
         )}
       </div>
 
       {/* Content */}
       <div className="p-6 text-start">
-        <h2 className="text-xl font-bold text-gray-900 mb-2">{title}</h2>
-        <p className="text-gray-600 mb-4">{description}</p>
+        <h2 className="mb-2 text-xl font-bold text-gray-900">{title}</h2>
+        <p className="mb-4 text-gray-600">{description}</p>
 
         {/* Bullet List */}
-        <ul className="space-y-2 mb-4">
+        <ul className="mb-4 space-y-2">
           {services?.map((service, index) => (
             <li key={index} className="flex items-center">
               <span className={`mr-2 ${accentColor}`}>●</span>
@@ -45,7 +44,10 @@ const ConstructionCard = ({ data }) => {
 
         {/* Link */}
         {linkText && (
-          <a href="#" className={`font-semibold ${accentColor} hover:underline`}>
+          <a
+            onClick={() => navigate({ to: "/portfolio/$slug", params: { slug: id } })}
+            className={`font-semibold ${accentColor} hover:underline`}
+          >
             {linkText}
           </a>
         )}

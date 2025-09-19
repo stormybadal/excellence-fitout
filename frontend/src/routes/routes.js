@@ -24,6 +24,14 @@ export const routes = [
     role: ["user", "admin"],
   },
   {
+    path: "/portfolio/$slug",
+    name: "PortfolioDetails",
+    icon: null,
+    showInNavbar: false,
+    protected: false,
+    role: ["user", "admin"],
+  },
+  {
     path: "/contact",
     name: "Contact",
     showInNavbar: true,
@@ -31,12 +39,4 @@ export const routes = [
     protected: false,
     role: ["user", "admin"],
   },
-  // {
-  //   path: "/in",
-  //   name: "Login",
-  //   showInNavbar: false,
-  //   icon: null,
-  //   protected: false,
-  //   role: ["user", "admin"],
-  // },
 ];
