@@ -34,7 +34,7 @@ const blogSchema = new mongoose.Schema(
     },
     isPublished: {
       type: Boolean,
-      required: true,
+      default: true,
     },
   },
   { timestamps: true },
