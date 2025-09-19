@@ -2,12 +2,12 @@ import { User } from "../models/user.model.js";
 
 /**
  * @module repositories/user
- * Repository for user operations in the database
+ * Repository for user related operations in the database
  *
  * Includes:
- * - update: Update a user entry in the database
- * - findByEmail: Find a user entry by email
- * - findById: Find a user entry by id
+ * - update: Update a entry in the database by id
+ * - findById: Find a entry by id
+ * - findByEmail: Find a entry by email
  */
 export class UserRepo {
   constructor(model = User) {
@@ -18,12 +18,10 @@ export class UserRepo {
     return this.model.findByIdAndUpdate(id, updateData, { new: true });
   }
 
-  // Find a user entry by email
   async findByEmail(email) {
     return await this.model.findOne({ email });
   }
 
-  // Find a user entry by id
   async findById(id) {
     return await this.model.findById(id);
   }
