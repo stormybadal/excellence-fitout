@@ -4,4 +4,4 @@ import { upload } from "../configs/multer.config.js";
 export const uploadSingle = (fieldName) => upload.single(fieldName);
 
 // For multiple images
-export const uploadMultiple = (fieldName, maxCount = 5) => upload.array(fieldName, maxCount);
+export const uploadMultiple = (fieldName, maxCount = 6) => upload.array(fieldName, maxCount);
