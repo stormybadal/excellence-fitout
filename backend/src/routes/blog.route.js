@@ -3,6 +3,7 @@ import { Router } from "express";
 // Middleware
 import { verifyJwt } from "../middlewares/auth.middleware.js";
 import { uploadSingle } from "../middlewares/upload.middleware.js";
+import { validate } from "../middlewares/validate.middleware.js";
 
 // Controllers
 import {
@@ -15,17 +16,27 @@ import {
   updatePublish,
 } from "../controllers/blog.controller.js";
 
+// Validators
+import {
+  createBlogSchema,
+  updateBlogInfoSchema,
+  updateBlogPublishSchema,
+} from "../validators/blog.validator.js";
+
 const router = Router();
 
 // Public routes
-router.route("/").post(verifyJwt, uploadSingle("image"), create);
+router.route("/").post(verifyJwt, uploadSingle("image"), validate(createBlogSchema), create);
 router.route("/").get(fetchAll);
 
 router.route("/:id").get(fetch);
 
 // Private routes
-router.route("/:id").patch(verifyJwt, updateInfo).delete(verifyJwt, remove);
+router
+  .route("/:id")
+  .patch(verifyJwt, validate(updateBlogInfoSchema), updateInfo)
+  .delete(verifyJwt, remove);
 router.route("/:id/image").patch(verifyJwt, uploadSingle("image"), updateImage);
-router.route("/:id/publish").patch(verifyJwt, updatePublish);
+router.route("/:id/publish").patch(verifyJwt, validate(updateBlogPublishSchema), updatePublish);
 
 export default router;
