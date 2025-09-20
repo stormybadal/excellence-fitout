@@ -10,6 +10,7 @@ import { Service } from "../models/service.model.js";
  * - findById: Find a entry by id
  * - delete: Delete a entry by id
  * - findAll: Find all entries
+ * - fetchCategories: Fetch all categories
  */
 export class ServiceRepo {
   constructor(model = Service) {
@@ -32,16 +33,21 @@ export class ServiceRepo {
     return await this.model.findByIdAndDelete(id);
   }
 
-  async findAll({ page = 1, limit = 10 }) {
+  async findAll({ page = 1, limit = 10, category }) {
     const skip = (page - 1) * limit;
+
+    const filter = {};
+    if (category) {
+      filter.category = category.toLowerCase().trim(); // normalize
+    }
 
     const [entries, total] = await Promise.all([
       this.model
-        .find()
+        .find(filter)
         .sort({ createdAt: -1 }) // newest first
         .skip(skip)
         .limit(limit),
-      this.model.countDocuments(),
+      this.model.countDocuments(filter),
     ]);
 
     return {
@@ -50,6 +56,10 @@ export class ServiceRepo {
       page,
       pages: Math.ceil(total / limit),
     };
+  }
+
+  async fetchCategories() {
+    return this.model.distinct("category");
   }
 }
 
