@@ -5,7 +5,15 @@ import { verifyJwt } from "../middlewares/auth.middleware.js";
 import { uploadSingle } from "../middlewares/upload.middleware.js";
 
 // Controllers
-import { create, fetch, fetchAll, kill, update } from "../controllers/blog.controller.js";
+import {
+  create,
+  fetch,
+  fetchAll,
+  remove,
+  updateImage,
+  updateInfo,
+  updatePublish,
+} from "../controllers/blog.controller.js";
 
 const router = Router();
 
@@ -16,6 +24,8 @@ router.route("/").get(fetchAll);
 router.route("/:id").get(fetch);
 
 // Private routes
-router.route("/:id").put(verifyJwt, update).delete(verifyJwt, kill);
+router.route("/:id").patch(verifyJwt, updateInfo).delete(verifyJwt, remove);
+router.route("/:id/image").patch(verifyJwt, uploadSingle("image"), updateImage);
+router.route("/:id/publish").patch(verifyJwt, updatePublish);
 
 export default router;
