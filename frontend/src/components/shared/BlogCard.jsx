@@ -27,7 +27,7 @@ function BlogCard({ blog }) {
         </h3>
         <p className="mb-4 text-sm text-gray-600">{blog.excerpt}</p>
         <a
-          onClick={() => navigate({ to: "/blog/$slug", params: { slug: blog.id } })}
+          onClick={() => navigate({ to: "/blog/$slug", params: { slug: blog._id } })}
           className="flex items-center gap-1 text-sm font-medium text-orange-500 hover:underline cursor-pointer"
         >
           Learn more <span className="text-xs">→</span>

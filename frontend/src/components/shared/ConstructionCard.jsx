@@ -11,7 +11,6 @@ const ConstructionCard = ({ data }) => {
     description,
     services,
     linkText,
-    icon: Icon,
     accentColor = "text-orange-500", // default accent color
   } = data;
 
@@ -20,11 +19,7 @@ const ConstructionCard = ({ data }) => {
       {/* Image with icon overlay */}
       <div className="relative">
         <img src={image} alt={title} className="h-48 w-full object-cover" />
-        {Icon && (
-          <div className="absolute top-3 left-3 rounded-lg bg-white p-2 shadow">
-            <Icon className="text-lg text-gray-700" />
-          </div>
-        )}
+        
       </div>
 
       {/* Content */}

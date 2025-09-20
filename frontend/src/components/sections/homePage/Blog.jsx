@@ -1,37 +1,28 @@
 import React from "react";
 import { useBlogs } from "../../../hook/useBlogs";
+import Heading from '../../shared/Heading.Jsx';
+import BlogCard from "../../shared/BlogCard";
 
-const posts = Array.from({ length: 3 }).map((_, i) => ({
-    id: i + 1,
-    title: `Dubai Fit-out Insight ${i + 1}`,
-    excerpt: "Trends, costs, and timelines for construction in Dubai.",
-    image: `https://picsum.photos/seed/blog-${i + 1}/600/400`,
-}));
 
 
 const Blog = () => {
 
-  const { data, isLoading, error } = useBlogs({ page: 1, limit: 3 }); // pass params if needed
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useBlogs({ limit: 3 });
 
-console.log("data",data);
+  const allBlogs = data?.pages?.flatMap(page => page.entries) || [];
+
     return (
         <section id="blog" className="bg-gray-50 py-16">
-            <div className="mx-auto max-w-7xl px-4">
-                <h2 className="text-2xl font-bold md:text-3xl">From Our Blog</h2>
-                <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {posts.map((p) => (
-                        <article key={p.id} className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100">
-                            <img src={p.image} alt={p.title} className="h-44 w-full object-cover" />
-                            <div className="p-4">
-                                <h3 className="font-semibold">{p.title}</h3>
-                                <p className="mt-1 text-sm text-gray-600">{p.excerpt}</p>
-                                <a href="#" className="mt-3 inline-block text-sm font-semibold text-yellow-700 hover:underline">Read More</a>
-                            </div>
-                        </article>
-                    ))}
-                </div>
-            </div>
-        </section>
+                        <div className="mx-auto max-w-7xl px-4">
+
+          <Heading title="Our" highlight="Blog"/>
+    <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {allBlogs.map((blog, idx) => (
+            <BlogCard key={blog._id || idx} blog={blog} />
+          ))}
+        </div>
+</div>
+           </section>
     );
 };
 
