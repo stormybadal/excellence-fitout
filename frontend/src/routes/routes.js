@@ -55,4 +55,51 @@ export const routes = [
     protected: false,
     role: ["user", "admin"],
   },
+  {
+    path: "/services",
+    name: "Services",
+    // layout: "DashboardLayout",
+    showInNavbar: true,
+    icon: null,
+    // protected: true,
+    // role: ["admin"],
+  },
+    {
+    path: "/blogs",
+    name: "BlogsSettings",
+    // layout: "DashboardLayout",
+    showInNavbar: true,
+    icon: null,
+    // protected: true,
+    // role: ["admin"],
+  },
+
+  // ----- Dashboard (flat structure) -----
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    layout: "DashboardLayout",
+    showInNavbar: false,
+    // protected: true,
+    // role: ["admin"],
+  },
+  {
+    path: "/dashboard/services",
+    name: "Services",
+    layout: "DashboardLayout",
+    showInNavbar: false,
+    icon: null,
+    // protected: true,
+    // role: ["admin"],
+  },
+  {
+    path: "/dashboard/blogs",
+    name: "BlogsSettings",
+    layout: "DashboardLayout",
+    showInNavbar: false,
+    icon: null,
+    // protected: true,
+    // role: ["admin"],
+  },
 ];
+
