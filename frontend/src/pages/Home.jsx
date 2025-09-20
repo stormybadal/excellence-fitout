@@ -35,7 +35,7 @@ function Home() {
         </div>
       </section>
       <Blog />
-      <Clients />
+      {/* <Clients /> */}
     </div>
   );
 }
