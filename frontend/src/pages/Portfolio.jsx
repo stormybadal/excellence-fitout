@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Experties from "../components/sections/portfolio/Experties";
 import OurProcess from "../components/sections/portfolio/OurProcess";
 import Services from "../components/sections/portfolio/Services";
@@ -6,8 +6,16 @@ import TabBar from "../components/sections/portfolio/TabBar";
 import GetStartedSection from "../components/shared/GetStartedSection";
 import PageHeader from "../components/shared/PageHeader";
 import { usePortfolio } from "../hook/usePortfolio"; // ✅ Make sure this is correct
+import { fetchCategories } from "../api/portfolio.api";
 
 function Portfolio() {
+  const [categories, setCategories] = useState([]);
+  const [catError, setCatError] = useState(null);
+  const [catLoading, setCatLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+console.log("selected ",selectedCategory);
+
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -18,9 +26,29 @@ function Portfolio() {
     isError,
     fetchNextPage,
     hasNextPage,
-  } = usePortfolio({ limit: 6 });
+  } = usePortfolio({ limit: 6 , category:selectedCategory});
 
   const allServices = data?.pages.flatMap((page) => page.entries) || [];
+
+
+
+  useEffect(() => {
+
+    const getCategories = async () => {
+      try {
+        setCatLoading(true);
+        const data = await fetchCategories();
+        setCategories(data);
+      } catch (err) {
+        setCatError(err.message || "Failed to fetch categories");
+      } finally {
+        setCatLoading(false);
+      }
+    };
+
+    getCategories();
+  }, []);
+
 
   return (
     <>
@@ -31,8 +59,18 @@ function Portfolio() {
         description="Comprehensive construction and interior solutions tailored to meet your specific needs and exceed expectations"
       />
 
-      <TabBar />
-      <Services services={allServices} isLoading={isLoading} isError={isError} />
+<TabBar categories={categories} 
+        onSelectCategory={(category) => setSelectedCategory(category)}
+
+/>
+   <Services
+  services={allServices}
+  isLoading={isLoading}
+  isError={isError}
+  fetchNextPage={fetchNextPage}
+  hasNextPage={hasNextPage}
+/>
+
       <Experties />
       <OurProcess />
 
