@@ -14,6 +14,13 @@ import { connectDB } from "./configs/db.config.js";
 
 // Load environment variables
 dotenv.config({ path: "./.env" });
+
+// const port = process.env.PORT || 8080;
+// app.listen(port, () => {
+//   console.log(`🚀 Server is running on port ${port}`);
+//   console.log(`📧 Mail service is ready to receive contact forms!`);
+// });
+
 // Connect DB with server
 connectDB()
   .then(() => {
