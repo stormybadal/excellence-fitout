@@ -14,7 +14,6 @@ import { connectDB } from "./configs/db.config.js";
 
 // Load environment variables
 dotenv.config({ path: "./.env" });
-
 // Connect DB with server
 connectDB()
   .then(() => {

@@ -2,15 +2,16 @@ import { useMutation } from "@tanstack/react-query";
 import { submitContactForm } from "../../../api/contact.api";
 import { contactFormFields } from "../../../forms/contact.form";
 import FormsLayout from "../../shared/FormLayout";
+import {toast, Toaster} from "react-hot-toast";
 
 function LeftContactForm() {
   const mutation = useMutation({
     mutationFn: submitContactForm,
     onSuccess: () => {
-      alert("Message sent!");
+      toast.success("Message sent!");
     },
     onError: (err) => {
-      alert(err.message || "Failed to send message");
+      toast.error(err.message || "Failed to send message");
     },
   });
 
@@ -23,6 +24,7 @@ function LeftContactForm() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-6">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-2xl space-y-6 rounded-xl bg-white p-8 shadow-2xl">
         {/* Section Heading */}
         <div className="space-y-3">
