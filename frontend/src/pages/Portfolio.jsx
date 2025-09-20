@@ -7,6 +7,7 @@ import GetStartedSection from "../components/shared/GetStartedSection";
 import PageHeader from "../components/shared/PageHeader";
 import { usePortfolio } from "../hook/usePortfolio"; // ✅ Make sure this is correct
 import { fetchCategories } from "../api/portfolio.api";
+import Testimonials from "../components/sections/homePage/Testimonials";
 
 function Portfolio() {
   const [categories, setCategories] = useState([]);
@@ -73,7 +74,7 @@ console.log("selected ",selectedCategory);
 
       <Experties />
       <OurProcess />
-
+<Testimonials/>
       <GetStartedSection
         heading="Ready to Start"
         subheading="Your Project?"
