@@ -1,4 +1,5 @@
 import React from "react";
+import { useBlogs } from "../../../hook/useBlogs";
 
 const posts = Array.from({ length: 3 }).map((_, i) => ({
     id: i + 1,
@@ -7,7 +8,12 @@ const posts = Array.from({ length: 3 }).map((_, i) => ({
     image: `https://picsum.photos/seed/blog-${i + 1}/600/400`,
 }));
 
+
 const Blog = () => {
+
+  const { data, isLoading, error } = useBlogs({ page: 1, limit: 3 }); // pass params if needed
+
+console.log("data",data);
     return (
         <section id="blog" className="bg-gray-50 py-16">
             <div className="mx-auto max-w-7xl px-4">
