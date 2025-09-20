@@ -30,11 +30,12 @@ const blogSchema = new mongoose.Schema(
     },
     tags: {
       type: [String],
+      set: (val) => val.map((tag) => tag.toLowerCase()),
       default: [],
     },
     isPublished: {
       type: Boolean,
-      required: true,
+      default: true,
     },
   },
   { timestamps: true },

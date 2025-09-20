@@ -5,22 +5,22 @@ import { verifyJwt } from "../middlewares/auth.middleware.js";
 
 // Controllers
 import {
-  createService,
-  deleteService,
-  getAllServices,
-  getService,
+  create,
+  fetch,
+  fetchAll,
+  remove,
   updateService,
 } from "../controllers/service.controller.js";
 
 const router = Router();
 
 // Public routes
-router.route("/").post(createService);
-router.route("/").get(getAllServices);
+router.route("/").post(create);
+router.route("/").get(fetchAll);
 
-router.route("/:id").get(getService);
+router.route("/:id").get(fetch);
 
 // Private routes
-router.route("/:id").put(verifyJwt, updateService).delete(verifyJwt, deleteService);
+router.route("/:id").put(verifyJwt, updateService).delete(verifyJwt, remove);
 
 export default router;
