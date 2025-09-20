@@ -30,6 +30,26 @@ export class BlogRepo {
   async delete(id) {
     return await this.model.findByIdAndDelete(id);
   }
+
+  async findAll({ page = 1, limit = 10 }) {
+    const skip = (page - 1) * limit;
+
+    const [entries, total] = await Promise.all([
+      this.model
+        .find()
+        .sort({ createdAt: -1 }) // newest first
+        .skip(skip)
+        .limit(limit),
+      this.model.countDocuments(),
+    ]);
+
+    return {
+      entries,
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+    };
+  }
 }
 
 export const blogRepo = new BlogRepo(); // Service repository instance

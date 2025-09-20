@@ -30,6 +30,7 @@ const blogSchema = new mongoose.Schema(
     },
     tags: {
       type: [String],
+      set: (val) => val.map((tag) => tag.toLowerCase()),
       default: [],
     },
     isPublished: {
