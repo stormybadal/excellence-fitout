@@ -1,4 +1,4 @@
-import { Blog } from "../models/blog.model.js";
+import { Service } from "../models/service.model.js";
 
 /**
  * @module repositories/service
@@ -9,9 +9,10 @@ import { Blog } from "../models/blog.model.js";
  * - update: Update a entry in the database by id
  * - findById: Find a entry by id
  * - delete: Delete a entry by id
+ * - findAll: Find all entries
  */
-export class BlogRepo {
-  constructor(model = Blog) {
+export class ServiceRepo {
+  constructor(model = Service) {
     this.model = model;
   }
 
@@ -52,4 +53,4 @@ export class BlogRepo {
   }
 }
 
-export const blogRepo = new BlogRepo(); // Service repository instance
+export const serviceRepo = new ServiceRepo(); // Service repository instance

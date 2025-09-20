@@ -30,7 +30,7 @@ export const create = asyncHandler(async (req, res) => {
   }
 
   // Upload single image
-  const cloudinaryRes = await uploadOnCloudinary(req.file.path);
+  const cloudinaryRes = await uploadOnCloudinary(req.file.path, "uploads/blogs");
 
   // Create blog
   const blog = await blogRepo.insert({
@@ -114,7 +114,7 @@ export const updateImage = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Image is missing. Please upload a valid image.");
   }
 
-  const cloudinaryRes = await uploadOnCloudinary(req.file.path);
+  const cloudinaryRes = await uploadOnCloudinary(req.file.path, "uploads/blogs");
 
   const updatedBlog = await blogRepo.update(id, { image: cloudinaryRes.secure_url });
 

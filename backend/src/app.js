@@ -7,6 +7,7 @@ import cors from "cors";
 // Routers
 import authRouter from "./routes/auth.route.js";
 import blogRouter from "./routes/blog.route.js";
+import serviceRouter from "./routes/service.route.js";
 
 /**
  * @module app
@@ -40,5 +41,6 @@ app.use(cookieParser());
 // Routes declaration
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/blog", blogRouter);
+app.use("/api/v1/service", serviceRouter);
 
 export { app };
