@@ -3,7 +3,6 @@ import Header from "../components/sections/PortfolioDetails/Header";
 import Info from "../components/sections/PortfolioDetails/Info";
 import Feature from "../components/sections/PortfolioDetails/Feature";
 import Gallery from "../components/sections/PortfolioDetails/Gallery";
-import Review from "../components/sections/PortfolioDetails/Review";
 import BackNavigation from "../components/shared/BackNavigation";
 import GetStartedSection from "../components/shared/GetStartedSection";
 
@@ -21,7 +20,6 @@ useEffect(() => {
    <Info/>
    <Feature/>
    <Gallery/>
-   <Review/>
 <GetStartedSection
   heading="Ready to Get"
   subheading="Started?"
