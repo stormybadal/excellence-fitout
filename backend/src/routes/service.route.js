@@ -10,6 +10,7 @@ import {
   create,
   fetch,
   fetchAll,
+  fetchCategories,
   remove,
   updateImages,
   updateInfo,
@@ -25,6 +26,8 @@ router
   .route("/")
   .post(verifyJwt, uploadMultiple("images", 6), validate(createServiceSchema), create);
 router.route("/").get(fetchAll);
+
+router.route("/category").get(fetchCategories);
 
 router.route("/:id").get(fetch);
 

@@ -30,12 +30,13 @@ export const fetchAll = asyncHandler(async (req, res) => {
   // Parse query params
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
+  const category = req.query.category || "";
 
   if (page <= 0 || limit <= 0) {
     throw new ApiError(400, "Page and limit must be positive integers.");
   }
 
-  const data = await serviceRepo.findAll({ page, limit });
+  const data = await serviceRepo.findAll({ page, limit, category });
 
   res.status(200).json(new ApiResponse(200, data, "All services fetched successfully!"));
 });
@@ -124,4 +125,15 @@ export const remove = asyncHandler(async (req, res) => {
   }
 
   res.status(200).json(new ApiResponse(200, service, "Service deleted successfully!"));
+});
+
+// Get all categories
+export const fetchCategories = asyncHandler(async (req, res) => {
+  const categories = await serviceRepo.fetchCategories();
+
+  if (!categories || categories.length === 0) {
+    throw new ApiError(404, "No categories found.");
+  }
+
+  res.status(200).json(new ApiResponse(200, categories, "Categories fetched successfully!"));
 });
