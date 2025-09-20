@@ -1,12 +1,17 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { fetchAllPortfolio, fetchPortfolioById } from "../api/portfolio.api";
 
-// Infinite query for portfolio list
-export const usePortfolio = (params = {}) => {
+export const usePortfolio = ({ limit, category } = {}) => {
   return useInfiniteQuery({
-    queryKey: ["portfolio", params],
-    queryFn: ({ pageParam = 1 }) => fetchAllPortfolio({ ...params, page: pageParam }),
-    getNextPageParam: (lastPage) => lastPage.page < lastPage.pages ? lastPage.page + 1 : undefined,
+    queryKey: ["portfolio", category], // category in key ensures refetch on change
+    queryFn: ({ pageParam = 1 }) =>
+      fetchAllPortfolio({
+        limit,
+        category,
+        page: pageParam,
+      }),
+    getNextPageParam: (lastPage) =>
+      lastPage.page < lastPage.pages ? lastPage.page + 1 : undefined,
     staleTime: 1000 * 60 * 5,
     cacheTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false,

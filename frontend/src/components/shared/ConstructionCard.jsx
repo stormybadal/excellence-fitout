@@ -28,14 +28,19 @@ const ConstructionCard = ({ data }) => {
         <p className="mb-4 text-gray-600">{description}</p>
 
         {/* Bullet List */}
-        <ul className="mb-4 space-y-2">
-          {services?.map((service, index) => (
-            <li key={index} className="flex items-center">
-              <span className={`mr-2 ${accentColor}`}>●</span>
-              <span className="text-gray-700">{service}</span>
-            </li>
-          ))}
-        </ul>
+
+{/* Bullet List */}
+<ul className="mb-4 space-y-2">
+  {services
+    ?.slice(-4) // take the last 4 items
+    .map((service, index) => (
+      <li key={index} className="flex items-center">
+        <span className={`mr-2 ${accentColor}`}>●</span>
+        <span className="text-gray-700">{service}</span>
+      </li>
+    ))}
+</ul>
+
 
         {/* Link */}
         {linkText && (
