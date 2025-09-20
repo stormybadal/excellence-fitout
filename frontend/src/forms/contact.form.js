@@ -3,7 +3,7 @@ export const contactFormFields = [
     name: "firstName",
     label: "First Name",
     type: "text",
-    placeholder: "Enter your email",
+    placeholder: "Enter your first name",
     required: true,
   },
   {
