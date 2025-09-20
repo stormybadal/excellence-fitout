@@ -14,7 +14,7 @@ export const create = asyncHandler(async (req, res) => {
   }
 
   // Upload all images to Cloudinary
-  const uploadedImages = await uploadManyOnCloudinary(req.files, "services");
+  const uploadedImages = await uploadManyOnCloudinary(req.files, "uploads/services");
 
   // Create service
   const service = await serviceRepo.insert({
@@ -92,7 +92,7 @@ export const updateImages = asyncHandler(async (req, res) => {
   // Upload new images if any
   let newImages = [];
   if (req.files && req.files.length > 0) {
-    newImages = await uploadManyOnCloudinary(req.files, "services");
+    newImages = await uploadManyOnCloudinary(req.files, "uploads/services");
     newImages = newImages.map((img) => img.secure_url);
   }
 
