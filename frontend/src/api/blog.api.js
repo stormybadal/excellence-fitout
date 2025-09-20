@@ -11,3 +11,16 @@ export const fetAllBlog = async ({ page, limit}) => {
   }
 };
 
+
+export const fetchBlogById = async (id) => {
+      console.log("id",id);
+
+  try {
+    console.log("id",id);
+    
+    const response = await client.get(`/blog/${id}`);
+    return response.data.data; // assuming your API returns { data: blog }
+  } catch (err) {
+    throw err.response?.data || new Error("Failed to fetch the blog details");
+  }
+};

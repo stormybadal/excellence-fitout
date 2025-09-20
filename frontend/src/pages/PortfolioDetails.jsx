@@ -7,19 +7,38 @@ import BackNavigation from "../components/shared/BackNavigation";
 import GetStartedSection from "../components/shared/GetStartedSection";
 
 import { useEffect } from "react";
+import { usePortfolioById } from "../hook/usePortfolio";
 export default function PortfolioDetail() {
   const { slug } = useParams({ from: "/portfolio/$slug" });
 useEffect(() => {
   window.scrollTo(0, 0);
 }, []);
 
+  const { data, isLoading, isError } = usePortfolioById(slug);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError || !data) return <p>data not found!</p>;
+
+
+
   return (
     <>
     <BackNavigation label="Back to Portfolio" href="/portfolio"/>
-<Header/>
-   <Info/>
-   <Feature/>
-   <Gallery/>
+<Header
+  heading={data?.heading + " & " + data?.subheading}
+  tagline={data?.tagline}
+  image={data?.images?.[data.images.length - 1]} // Last image
+/>
+
+<Info
+  subheading={data.subheading}
+  description={data.description}
+  image={data.images?.[data.images.length - 1]}
+/>
+
+<Feature features={data.features} />
+
+   <Gallery image={data.images}/>
 <GetStartedSection
   heading="Ready to Get"
   subheading="Started?"
