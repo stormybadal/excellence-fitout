@@ -17,4 +17,6 @@
   animation: scroll 30s linear infinite;
 }
 
-
+button {
+  cursor: pointer;
+}

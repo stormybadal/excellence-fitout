@@ -2,16 +2,42 @@ import { useMutation } from "@tanstack/react-query";
 import { submitContactForm } from "../../../api/mailservice.api";
 import { contactFormFields } from "../../../forms/contact.form";
 import FormsLayout from "../../shared/FormLayout";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 function LeftContactForm() {
   const mutation = useMutation({
     mutationFn: submitContactForm,
-    onSuccess: () => {
-      toast.success("Message sent!");
+    onSuccess: (response) => {
+      // Check if email was sent successfully
+      if (response.data.emailSent) {
+        toast.success(" Message sent successfully! We'll get back to you within 24 hours.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else {
+        toast.warning("Message received, but email notification failed. We'll still get back to you!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
     },
     onError: (err) => {
-      toast.error(err.message || "Failed to send message");
+      toast.error("Failed to send message. Please try again or contact us directly.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     },
   });
 
@@ -24,7 +50,6 @@ function LeftContactForm() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-6">
-      <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-2xl space-y-6 rounded-xl bg-white p-8 shadow-2xl">
         {/* Section Heading */}
         <div className="space-y-3">

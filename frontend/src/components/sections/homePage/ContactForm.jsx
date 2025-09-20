@@ -3,6 +3,7 @@ import FormsLayout from "../../shared/FormLayout";
 import { contactFormFields } from "../../../forms/contact.form";
 import { submitContactForm } from "../../../api/mailservice.api";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaShieldAlt, FaTools, FaCheckCircle } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const ContactForm = () => {
     const [submitted, setSubmitted] = useState(false);
@@ -10,12 +11,41 @@ const ContactForm = () => {
     const handleSubmit = async (values) => {
         try {
             console.log("Home contact submission", values);
-            await submitContactForm(values);
+            const response = await submitContactForm(values);
+
+            // Check if email was sent successfully
+            if (response.data.emailSent) {
+                toast.success("Message sent successfully! We'll get back to you within 24 hours.", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+            } else {
+                toast.warning(" Message received, but email notification failed. We'll still get back to you!", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+            }
+
             setSubmitted(true);
             setTimeout(() => setSubmitted(false), 2500);
         } catch (error) {
             console.error("Error submitting contact form:", error);
-            // You can add error handling here (toast notification, etc.)
+            toast.error(" Failed to send message. Please try again or contact us directly.", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         }
     };
 

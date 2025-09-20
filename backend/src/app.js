@@ -8,7 +8,9 @@ import cors from "cors";
 import authRouter from "./routes/auth.route.js";
 import blogRouter from "./routes/blog.route.js";
 import serviceRouter from "./routes/service.route.js";
+import projectRouter from "./routes/project.route.js";
 import mailServiceRouter from "./routes/mailservice.route.js";
+import galleryRouter from "./routes/gallery.route.js";
 
 /**
  * @module app
@@ -43,6 +45,8 @@ app.use(cookieParser());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/blog", blogRouter);
 app.use("/api/v1/service", serviceRouter);
+app.use("/api/v1/project", projectRouter);
 app.use("/api/v1/mail", mailServiceRouter);
+app.use("/api/v1/gallery", galleryRouter);
 
 export { app };
