@@ -14,6 +14,10 @@ export class UserRepo {
     this.model = model;
   }
 
+  async insert(data) {
+    return this.model.create(data);
+  }
+
   async update(id, updateData) {
     return this.model.findByIdAndUpdate(id, updateData, { new: true });
   }

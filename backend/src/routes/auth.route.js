@@ -4,11 +4,12 @@ import { Router } from "express";
 import { verifyJwt } from "../middlewares/auth.middleware.js";
 
 // Controllers
-import { login, logout, refreshAccessToken } from "../controllers/auth.controller.js";
+import { login, logout, refreshAccessToken, register } from "../controllers/auth.controller.js";
 
 const router = Router();
 
-// Public routes
+// Public
+router.route("/register").post(register);
 router.route("/login").post(login);
 
 // Private routes
