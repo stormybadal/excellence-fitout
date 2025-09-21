@@ -171,7 +171,7 @@ const Projects = () => {
                 {/* View all projects button */}
                 <div className="mt-12 text-center">
                     <button
-                        onClick={() => navigate("/portfolio")}
+                        onClick={() => navigate("/projects")}
                         className="group inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-4 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
                     >
                         <span>View All Projects</span>

@@ -172,11 +172,20 @@ export const routes = [
     role: ["user", "admin"],
   },
 
+  {
+    path: "/projects",
+    name: "Project",
+    icon: null,
+    showInNavbar: true,
+    protected: false,
+    role: ["user", "admin"],
+  },
+
   // 🔹 New Gallery Routes
   {
     path: "/gallery",
     name: "Gallery",
-    showInNavbar: true,
+    showInNavbar: false,
     icon: null,
     protected: false,
     role: ["user", "admin"],

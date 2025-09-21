@@ -179,7 +179,7 @@ const ProjectDetails = () => {
 
                     <div className="text-center">
                         <button
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate("/projects")}
                             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-semibold rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
                         >
                             View All Projects

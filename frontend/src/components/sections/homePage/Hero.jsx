@@ -29,9 +29,9 @@ const Hero = () => {
                     </div>
 
                     <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl lg:text-7xl">
-                        Excellence in{" "}
+                        Excellence {" "}
                         <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                            Fit-out
+                            Interior
                         </span>
                         <br />
                         Renovation & Construction

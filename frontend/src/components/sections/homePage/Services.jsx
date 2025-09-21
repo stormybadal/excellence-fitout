@@ -1,5 +1,6 @@
 import React from "react";
 import { FaTools, FaHome, FaDraftingCompass, FaPaintRoller, FaBuilding, FaWrench } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const services = [
     { icon: <FaDraftingCompass />, title: "Design & Build", desc: "End-to-end design and construction." },
@@ -11,6 +12,8 @@ const services = [
 ];
 
 const Services = () => {
+
+    const navigate = useNavigate();
     return (
         <section id="services" className="relative bg-white py-12">
             {/* Background decoration */}
@@ -63,14 +66,24 @@ const Services = () => {
                             </p>
 
                             {/* Learn more link */}
-                            <div className="mt-6">
-                                <a href="#" className="inline-flex items-center text-yellow-600 hover:text-yellow-700 font-medium text-sm transition-colors duration-300">
+                            {/* <button className="mt-6">
+                                <a href="/portfolio" className="inline-flex items-center text-yellow-600 hover:text-yellow-700 font-medium text-sm transition-colors duration-300">
                                     Learn More
                                     <svg className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                     </svg>
                                 </a>
-                            </div>
+                            </button> */}
+
+                            <button
+                                onClick={() => navigate("/portfolio")}
+                                className="inline-flex items-center text-yellow-600 hover:text-yellow-700 font-medium text-sm transition-colors duration-300"
+                            >
+                                Learn More
+                                <svg className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
 
                             {/* Decorative element */}
                             <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-yellow-100/30 to-transparent rounded-tl-2xl"></div>

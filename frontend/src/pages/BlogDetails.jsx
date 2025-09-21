@@ -2,9 +2,12 @@ import { useParams } from "@tanstack/react-router";
 import React, { useEffect } from "react";
 import BackNavigation from '../components/shared/BackNavigation';
 import { useBlog } from "../hook/useBlogs";
+import { FaArrowLeft, FaMapMarkerAlt, FaClock, FaCalendarAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const BlogDetails = () => {
   const { slug } = useParams({ from: "/blog/$slug" });
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -17,7 +20,21 @@ const BlogDetails = () => {
 
   return (
     <>
-      <BackNavigation label="Go To Blog" href="/blog" />
+      {/* <BackNavigation label="Go to Blogs" href="/blog" />
+       */}
+
+      {/* Back Button */}
+      <div className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <button
+            onClick={() => navigate('/blog')}
+            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-300"
+          >
+            <FaArrowLeft className="mr-2" />
+            Back to Goals
+          </button>
+        </div>
+      </div>
       <div className="bg-white py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         {/* Blog Header Image */}
         <div className="mb-8">

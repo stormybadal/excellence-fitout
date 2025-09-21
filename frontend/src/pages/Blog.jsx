@@ -50,7 +50,7 @@ const Blog = () => {
         {/* Loader for next page */}
         <div ref={loadMoreRef} className="text-center py-4">
           {isFetchingNextPage && <p>Loading more blogs...</p>}
-          {!hasNextPage && <p>No more blogs!</p>}
+          {/* {!hasNextPage && <p>No more blogs!</p>} */}
         </div>
       </div>
     </section>
