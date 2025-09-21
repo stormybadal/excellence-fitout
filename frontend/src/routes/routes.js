@@ -228,12 +228,12 @@ export const routes = [
   },
 
   // ----- Dashboard (flat structure) -----
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    layout: "DashboardLayout",
-    showInNavbar: false,
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   layout: "DashboardLayout",
+  //   showInNavbar: false,
+  // },
   {
     path: "/dashboard/services",
     name: "Services",

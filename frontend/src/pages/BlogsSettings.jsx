@@ -327,22 +327,27 @@
 
 
 
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Button from "../components/ui/Button";
 import { useBlogs } from "../hook/useBlogs";
 import axios from "axios";
+import { createBlog, updateBlog, deleteBlog } from "../api/blog.api";
+import { toast, Toaster} from "react-hot-toast";
 
 export default function BlogSetting() {
   const [open, setOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [editing, setEditing] = useState(null);
-  const [formData, setFormData] = useState({
-    title: "",
-    content: "",
-    image: "",
-    tags: [],
-    isPublished: true,
-  });
+  const [preview, setPreview] = useState(null);
+
+const [formData, setFormData] = useState({
+  title: "",
+  content: "",
+  image: null, // store File object instead of string
+  tags: [],
+  isPublished: true,
+});
+
 
   const [search, setSearch] = useState("");
 
@@ -355,10 +360,40 @@ export default function BlogSetting() {
     isFetchingNextPage,
   } = useBlogs({ limit: 9 });
 
+  console.log("BlogSetting data:", data);
+  
+  useEffect(() => {
+    if (!formData.image) {
+      setPreview("");
+      return;
+    }
+
+    if (formData.image instanceof File) {
+      // New file selected
+      const objectUrl = URL.createObjectURL(formData.image);
+      setPreview(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
+    } else if (typeof formData.image === "string") {
+      // Existing URL (editing)
+      setPreview(formData.image);
+    }
+  }, [formData.image]);
+
+
   // ✅ Fix: match API structure
   const blogs = data?.pages.flatMap((page) => page.entries) || [];
 
-  // Handle form change
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, image: file }));
+
+    if (file) {
+      const objectUrl = URL.createObjectURL(file);
+      setPreview(objectUrl);
+    }
+  };
+
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -388,20 +423,52 @@ export default function BlogSetting() {
     setOpen(true);
   };
 
-  // Submit form
-  const handleSubmit = async () => {
-    try {
-      if (editing) {
-        await axios.put(`/api/blogs/${editing._id}`, formData);
-      } else {
-        await axios.post("/api/blogs", formData);
-      }
-      setOpen(false);
-      setEditing(null);
-    } catch (err) {
-      console.error(err);
+  useEffect(() => {
+  if (editing) {
+    setFormData({
+      title: editing.title,
+      content: editing.content,
+      image: null, // keep null, only set if user chooses new file
+      tags: editing.tags || [],
+      isPublished: editing.isPublished,
+    });
+    setPreview(editing.image || ""); // existing image URL for preview
+  }
+}, [editing]);
+
+const handleSubmit = async () => {
+  try {
+    const formPayload = new FormData();
+    formPayload.append("title", formData.title);
+    formPayload.append("content", formData.content);
+    formPayload.append("isPublished", formData.isPublished);
+    formPayload.append("tags", formData.tags.join(","));
+
+    // Only append file if user selected a new one
+    if (formData.image instanceof File) {
+      formPayload.append("image", formData.image);
     }
-  };
+
+    const formDataObj = Object.fromEntries(formPayload.entries());
+console.log(formDataObj);
+    console.log("Submitting form with data:", formData);
+    if (editing) {
+      await updateBlog(editing._id, formPayload);
+      toast.success("Blog updated successfully!");
+    } else {
+      await createBlog(formPayload);
+     toast.success("Blog created successfully!");
+    }
+
+    setOpen(false);
+     setEditing(null);
+    // optionally refresh your blog list
+  } catch (err) {
+    console.error(err);
+    toast.error(err.message || "Something went wrong!");
+  }
+};
+
 
   // Delete
   const confirmDelete = async () => {
@@ -421,6 +488,7 @@ export default function BlogSetting() {
 
   return (
     <div className="p-4">
+      <Toaster position="top-center"reverseOrder={false} />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <h2 className="text-3xl font-bold">Blog Settings</h2>
@@ -584,21 +652,39 @@ export default function BlogSetting() {
                 onChange={handleTagsChange}
                 className="w-full rounded-md border px-3 py-2 text-sm"
               />
-              <input
+             <input
+                type="file"
                 name="image"
-                placeholder="Image URL"
-                value={formData.image}
-                onChange={handleChange}
+                onChange={handleFileChange}
                 className="w-full rounded-md border px-3 py-2 text-sm"
               />
-              <div className="flex items-center gap-2">
+
+              {preview && (
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="mt-2 w-32 h-32 object-cover rounded"
+                />
+              )}
+
+              {/* Toggle for Published */}
+             <div className="flex items-center gap-2">
+              <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.isPublished}
                   onChange={handleTogglePublished}
+                  className="sr-only peer"
                 />
-                <label className="text-sm">Published</label>
-              </div>
+                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 
+                                peer-focus:ring-2 peer-focus:ring-blue-300 
+                                transition-colors duration-200"></div>
+                <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full 
+                                peer-checked:translate-x-5 transition-transform duration-200"></div>
+              </label>
+              <span className="text-sm select-none">Published</span>
+            </div>
+
             </div>
             <div className="flex justify-end gap-2 mt-4">
               <Button variant="outline" onClick={() => setOpen(false)}>
