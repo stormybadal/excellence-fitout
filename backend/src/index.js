@@ -1,4 +1,9 @@
+
+
+import path from "path";
 import dotenv from "dotenv";
+
+dotenv.config({ path: path.resolve("./.env") }); // absolute path ensures PM2 can find it
 
 import { app } from "./app.js";
 import { connectDB } from "./configs/db.config.js";
