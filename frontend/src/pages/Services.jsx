@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "../components/ui/Button";
 import { MoreHorizontal } from "lucide-react";
+import { usePortfolio } from "../hook/usePortfolio";
+import { createPortfolio, updatePortfolio, deletePortfolio } from "../api/portfolio.api";
 
 export default function Services() {
-  const [services, setServices] = useState([]);
   const [open, setOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [editing, setEditing] = useState(null);
+  const [newCategory, setNewCategory] = useState("");
   const [formData, setFormData] = useState({
     heading: "",
     tagline: "",
@@ -20,16 +22,21 @@ export default function Services() {
 
   const [search, setSearch] = useState("");
   const [filterCategory, setFilterCategory] = useState("All");
+const [addingNewCategory, setAddingNewCategory] = useState(false);
 
-  // Fetch services
-  const fetchServices = async () => {
-    const res = await axios.get("http://localhost:8080/api/v1/blog");
-    setServices(res.data);
-  };
+  // ✅ Use React Query hook instead of manual fetch
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = usePortfolio({ limit: 9 });
 
-  useEffect(() => {
-    fetchServices();
-  }, []);
+  console.log("Services data:", data);
+
+  // Flatten paginated data
+ const services = data?.pages.flatMap((page) => page.entries) || [];
 
   // Handle form change
   const handleChange = (e) =>
@@ -38,11 +45,21 @@ export default function Services() {
   const handleFeaturesChange = (e) =>
     setFormData({ ...formData, features: e.target.value.split(",") });
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    const urls = files.map((file) => URL.createObjectURL(file));
-    setFormData({ ...formData, images: urls });
-  };
+const handleImageChange = (e) => {
+  const files = Array.from(e.target.files);
+
+  const newImages = files.map((file) => ({
+    file,                   // actual File object for FormData
+    preview: URL.createObjectURL(file), // for showing preview in UI
+  }));
+
+  setFormData((prev) => ({
+    ...prev,
+    images: [...prev.images, ...newImages],
+  }));
+};
+
+
 
   // Open modal for add
   const openAddModal = () => {
@@ -67,25 +84,42 @@ export default function Services() {
   };
 
   // Submit form
-  const handleSubmit = async () => {
-    try {
-      if (editing) {
-        await axios.put(`/api/services/${editing._id}`, formData);
-      } else {
-        await axios.post("/api/services", formData);
-      }
-      setOpen(false);
-      setEditing(null);
-      fetchServices();
-    } catch (err) {
-      console.error(err);
+const handleSubmit = async () => {
+  try {
+    const fd = new FormData();
+    fd.append("heading", formData.heading);
+    fd.append("tagline", formData.tagline);
+    fd.append("subheading", formData.subheading);
+    fd.append("description", formData.description);
+    fd.append("category", formData.category);
+
+    // Features array
+    formData.features.forEach(f => fd.append("features[]", f));
+
+    // Actual files
+    formData.images.forEach(imgObj => fd.append("images", imgObj.file));
+    console.log("FormData entries:");
+    for (let pair of fd.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]);
     }
-  };
+
+    if (editing) await updatePortfolio(editing._id, fd);
+    else await createPortfolio(fd);
+
+    setOpen(false);
+    setEditing(null);
+    fetchServices();
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   // Delete
   const confirmDelete = async () => {
     try {
-      await axios.delete(`/api/services/${editing._id}`);
+      if (editing?._id) {
+        await deletePortfolio(editing._id);
+      }
       setDeleteConfirm(false);
       setEditing(null);
       fetchServices();
@@ -95,12 +129,14 @@ export default function Services() {
   };
 
   // Derived data
+  // Categories
   const categories = ["All", ...new Set(services.map((s) => s.category))];
 
+  // Search + filter
   const filteredServices = services.filter((s) => {
     const matchesSearch =
-      s.heading.toLowerCase().includes(search.toLowerCase()) ||
-      s.tagline.toLowerCase().includes(search.toLowerCase());
+      s.heading?.toLowerCase().includes(search.toLowerCase()) ||
+      s.tagline?.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
       filterCategory === "All" || s.category === filterCategory;
     return matchesSearch && matchesCategory;
@@ -216,7 +252,7 @@ export default function Services() {
                   key={i}
                   src={img}
                   alt="preview"
-                  className="w-16 h-16 rounded-md object-cover"
+                  className="w-20 h-20 rounded-md object-cover"
                 />
               ))}
             </div>
@@ -243,7 +279,7 @@ export default function Services() {
 
       {/* Add/Edit Modal */}
       {open && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-auto p-4">
           <div className="bg-white p-6 rounded-lg w-full max-w-lg shadow-lg">
             <h3 className="text-lg font-semibold mb-4">
               {editing ? "Edit Service" : "Add New Service"}
@@ -254,43 +290,108 @@ export default function Services() {
                 placeholder="Heading"
                 value={formData.heading}
                 onChange={handleChange}
-                className="w-full rounded-md border px-3 py-2 text-sm"
+                className="w-full rounded-md border px-4 py-2 text-sm"
               />
               <input
                 name="tagline"
                 placeholder="Tagline"
                 value={formData.tagline}
                 onChange={handleChange}
-                className="w-full rounded-md border px-3 py-2 text-sm"
+                className="w-full rounded-md border px-4 py-2 text-sm"
               />
               <input
                 name="subheading"
                 placeholder="Subheading"
                 value={formData.subheading}
                 onChange={handleChange}
-                className="w-full rounded-md border px-3 py-2 text-sm"
+                className="w-full rounded-md border px-4 py-2 text-sm"
               />
               <textarea
                 name="description"
                 placeholder="Description"
                 value={formData.description}
                 onChange={handleChange}
-                className="w-full rounded-md border px-3 py-2 text-sm min-h-[80px]"
+                className="w-full rounded-md border px-4 py-2 text-sm min-h-[80px]"
               />
-              <input
-                name="features"
-                placeholder="Features (comma separated)"
-                value={formData.features.join(",")}
-                onChange={handleFeaturesChange}
-                className="w-full rounded-md border px-3 py-2 text-sm"
-              />
-              <input
-                name="category"
-                placeholder="Category"
-                value={formData.category}
-                onChange={handleChange}
-                className="w-full rounded-md border px-3 py-2 text-sm"
-              />
+              <div> 
+                {formData.features.map((feature, index) => (
+                    <div key={index} className="flex items-center gap-2 mb-2">
+                    <input
+                        type="text"
+                        value={feature}
+                        onChange={(e) => {
+                        const updated = [...formData.features];
+                        updated[index] = e.target.value;
+                        setFormData({ ...formData, features: updated });
+                        }}
+                        placeholder={`Feature ${index + 1}`}
+                        className="flex-1 rounded-md border px-3 py-2 text-sm"
+                    />
+                    <button
+                        type="button"
+                        onClick={() => {
+                        const updated = formData.features.filter((_, i) => i !== index);
+                        setFormData({ ...formData, features: updated });
+                        }}
+                        className="px-2 py-1 bg-red-500 text-white rounded-md text-xs"
+                    >
+                        ✕
+                    </button>
+                    </div>
+                ))}
+                <button
+                    type="button"
+                    onClick={() =>
+                    setFormData({ ...formData, features: [...formData.features, ""] })
+                    }
+                    className="px-3 py-1 bg-blue-500 text-white rounded-md text-sm"
+                >
+                    + Add Feature
+                </button>
+                </div>
+
+                {/* Category */}
+                <div>
+                <label className="block text-sm font-medium mb-1">Category</label>
+                <select
+                    value={addingNewCategory ? "new" : formData.category || ""}
+                    onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === "new") {
+                        setAddingNewCategory(true);
+                        setFormData({ ...formData, category: "" });
+                    } else {
+                        setAddingNewCategory(false);
+                        setNewCategory("");
+                        setFormData({ ...formData, category: value });
+                    }
+                    }}
+                    className="w-full rounded-md border px-3 py-2 text-sm"
+                >
+                    <option value="">Select Category</option>
+                    {categories
+                    .filter((c) => c !== "All")
+                    .map((c, idx) => (
+                        <option key={idx} value={c}>
+                        {c}
+                        </option>
+                    ))}
+                    <option value="new">+ Add New</option>
+                </select>
+
+                {addingNewCategory && (
+                    <input
+                    type="text"
+                    placeholder="Enter new category"
+                    value={newCategory}
+                    onChange={(e) => {
+                        setNewCategory(e.target.value);
+                        setFormData({ ...formData, category: e.target.value });
+                    }}
+                    className="mt-2 w-full rounded-md border px-4 py-2 text-sm"
+                    />
+                )}
+                </div>
               <div>
                 <input
                   type="file"
@@ -299,15 +400,16 @@ export default function Services() {
                   className="w-full text-sm"
                 />
                 <div className="flex gap-2 mt-2 flex-wrap">
-                  {formData.images.map((img, i) => (
-                    <img
-                      key={i}
-                      src={img}
-                      alt="preview"
-                      className="w-16 h-16 rounded-md object-cover"
-                    />
-                  ))}
-                </div>
+  {formData.images.map((img, i) => (
+    <img
+      key={i}
+      src={img.preview} // use preview for UI
+      alt="preview"
+      className="w-20 h-20 rounded-md object-cover"
+    />
+  ))}
+</div>
+
               </div>
             </div>
             <div className="flex justify-end gap-2 mt-4">

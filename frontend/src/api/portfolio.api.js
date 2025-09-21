@@ -25,6 +25,32 @@ export const fetchPortfolioById = async (id) => {
   }
 };
 
+export const createPortfolio = async (portfolioData) => {
+  try {
+    const response = await client.post("/service", portfolioData);
+    return response.data;
+  } catch (err) {
+    throw err.response?.data || new Error("Failed to create portfolio item");
+  }
+};
+
+export const updatePortfolio = async (portfolioId, portfolioData) => {
+  try {
+    const response = await client.patch(`/service/${portfolioId}`, portfolioData);
+    return response.data;
+  } catch (err) {
+    throw err.response?.data || new Error("Failed to update portfolio item");
+  } 
+};
+
+export const deletePortfolio = async (portfolioId) => {
+  try {
+    const response = await client.delete(`/service/${portfolioId}`);
+    return response.data;
+  } catch (err) {
+    throw err.response?.data || new Error("Failed to delete portfolio item");
+  } 
+};
 
 // Fetch all categories
 export const fetchCategories = async () => {

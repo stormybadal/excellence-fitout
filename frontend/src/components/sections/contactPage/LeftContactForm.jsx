@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { submitContactForm } from "../../../api/mailservice.api";
 import { contactFormFields } from "../../../forms/contact.form";
 import FormsLayout from "../../shared/FormLayout";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 function LeftContactForm() {
   const mutation = useMutation({
