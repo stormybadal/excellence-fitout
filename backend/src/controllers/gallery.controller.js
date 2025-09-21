@@ -20,65 +20,57 @@ import { galleryRepo } from "../repositories/gallery.repo.js";
 
 // Upload and create new gallery image
 export const create = asyncHandler(async (req, res) => {
-    if (!req.file) {
-        throw new ApiError(400, "Image is missing. Please upload a valid image.");
-    }
+  if (!req.file) {
+    throw new ApiError(400, "Image is missing. Please upload a valid image and try again.");
+  }
 
-    // Upload image to Cloudinary
-    const cloudinaryRes = await uploadOnCloudinary(req.file.path, "uploads/gallery");
+  // Upload single image
+  const cloudinaryRes = await uploadOnCloudinary(req.file.path, "uploads/gallery");
 
-    // Save to DB
-    const galleryImage = await galleryRepo.insert({
-        imageUrl: cloudinaryRes.secure_url,
-    });
+  // Save to DB
+  const image = await galleryRepo.insert({
+    image: cloudinaryRes.secure_url,
+  });
 
-    res
-        .status(201)
-        .json(new ApiResponse(201, galleryImage, "Gallery image uploaded successfully!"));
+  res.status(200).json(new ApiResponse(200, image, "Gallery image uploaded successfully!"));
 });
 
-// Get all gallery images with pagination
+// Get all gallery
 export const fetchAll = asyncHandler(async (req, res) => {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
 
-    if (page <= 0 || limit <= 0) {
-        throw new ApiError(400, "Page and limit must be positive integers.");
-    }
+  if (page <= 0 || limit <= 0) {
+    throw new ApiError(400, "Page and limit must be positive integers.");
+  }
 
-    const data = await galleryRepo.findAll({ page, limit });
+  const data = await galleryRepo.findAll({ page, limit });
 
-    res
-        .status(200)
-        .json(new ApiResponse(200, data, "All gallery images fetched successfully!"));
+  res.status(200).json(new ApiResponse(200, data, "All gallery images fetched successfully!"));
 });
 
 // Get single gallery image by id
 export const fetch = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const galleryImage = await galleryRepo.findById(id);
+  const image = await galleryRepo.findById(id);
 
-    if (!galleryImage) {
-        throw new ApiError(404, "Gallery image not found. Please try again.");
-    }
+  if (!image) {
+    throw new ApiError(404, "Gallery image not found. Please try again.");
+  }
 
-    res
-        .status(200)
-        .json(new ApiResponse(200, galleryImage, "Gallery image fetched successfully!"));
+  res.status(200).json(new ApiResponse(200, image, "Gallery image fetched successfully!"));
 });
 
 // Delete gallery image by id
 export const remove = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const galleryImage = await galleryRepo.delete(id);
+  const image = await galleryRepo.delete(id);
 
-    if (!galleryImage) {
-        throw new ApiError(404, "Gallery image not found. Please try again.");
-    }
+  if (!image) {
+    throw new ApiError(404, "Gallery image not found. Please try again.");
+  }
 
-    res
-        .status(200)
-        .json(new ApiResponse(200, galleryImage, "Gallery image deleted successfully!"));
+  res.status(200).json(new ApiResponse(200, image, "Gallery image deleted successfully!"));
 });

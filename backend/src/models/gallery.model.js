@@ -5,22 +5,18 @@ import mongoose from "mongoose";
  * Stores individual images for projects
  *
  * Fields:
- * - imageUrl: URL of the image
- * - createdAt / updatedAt: timestamps
+ * - image: URL of the image
  */
-
 const gallerySchema = new mongoose.Schema(
-    {
-
-        imageUrl: {
-            type: String,
-            required: [true, "Image URL is required"],
-            trim: true,
-        },
+  {
+    image: {
+      type: String,
+      required: [true, "Image URL is required"],
     },
-    {
-        timestamps: true,
-    }
+  },
+  {
+    timestamps: true,
+  },
 );
 
-export const GalleryImage = mongoose.model("Gallery", gallerySchema);
+export const Gallery = mongoose.model("Gallery", gallerySchema);
