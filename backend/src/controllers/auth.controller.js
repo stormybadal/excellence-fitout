@@ -32,6 +32,19 @@ const cookieOptions = {
   sameSite: "Strict",
 };
 
+export const register = asyncHandler(async (req, res) => {
+  const { fullname, email, password } = req.body;
+
+  if (!fullname || !email || !password) {
+    throw new ApiError(400, "Fullname, email and password are required.");
+  }
+
+  const user = await userRepo.insert({ fullname, email, password });
+
+  // Return response
+  return res.status(201).json(new ApiResponse(201, user, "User registered successfully!"));
+});
+
 // Login user
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
