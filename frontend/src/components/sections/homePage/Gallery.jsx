@@ -161,7 +161,7 @@ const Gallery = () => {
         if (!data?.data?.entries) return [];
         return data.data.entries.map((img) => ({
             id: img._id,
-            src: img.imageUrl,
+            src: img.image,
             alt: `Gallery Image ${img._id}`,
         }));
     }, [data]);

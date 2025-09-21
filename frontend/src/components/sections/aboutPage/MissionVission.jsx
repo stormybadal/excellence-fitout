@@ -11,7 +11,7 @@ const MissionVision = () => {
       <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
         {/* Mission Card */}
         <div className="bg-orange-50 rounded-xl shadow-md p-8 flex flex-col items-start">
-          <div className="bg-gradient-to-br from-orange-400 to-yellow-400 p-4 rounded-md mb-4 rounded-4xl">
+          <div className="bg-gradient-to-br from-orange-400 to-yellow-400 p-4 rounded-md mb-4">
             <FaBullseye className="text-white text-4xl" />
           </div>
           <h3 className="text-3xl font-bold mb-2">Our Mission</h3>
@@ -23,7 +23,7 @@ const MissionVision = () => {
 
         {/* Vision Card */}
         <div className="bg-red-50 rounded-xl shadow-md p-8 flex flex-col items-start">
-          <div className="bg-gradient-to-br from-red-400 to-orange-400 p-4 rounded-md mb-4 rounded-4xl">
+          <div className="bg-gradient-to-br from-red-400 to-orange-400 p-4 rounded-md mb-4 ">
             <FaAward className="text-white text-4xl" />
           </div>
           <h3 className="text-3xl font-bold mb-2">Our Vision</h3>

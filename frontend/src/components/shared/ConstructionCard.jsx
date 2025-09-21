@@ -11,6 +11,7 @@ const ConstructionCard = ({ data }) => {
     description,
     services,
     linkText,
+    subheading,
     accentColor = "text-orange-500", // default accent color
   } = data;
 
@@ -19,27 +20,27 @@ const ConstructionCard = ({ data }) => {
       {/* Image with icon overlay */}
       <div className="relative">
         <img src={image} alt={title} className="h-48 w-full object-cover" />
-        
+
       </div>
 
       {/* Content */}
       <div className="p-6 text-start">
         <h2 className="mb-2 text-xl font-bold text-gray-900">{title}</h2>
-        <p className="mb-4 text-gray-600">{description}</p>
+        <p className="mb-4 text-gray-600">{subheading}</p>
 
         {/* Bullet List */}
 
-{/* Bullet List */}
-<ul className="mb-4 space-y-2">
-  {services
-    ?.slice(-4) // take the last 4 items
-    .map((service, index) => (
-      <li key={index} className="flex items-center">
-        <span className={`mr-2 ${accentColor}`}>●</span>
-        <span className="text-gray-700">{service}</span>
-      </li>
-    ))}
-</ul>
+        {/* Bullet List */}
+        <ul className="mb-4 space-y-2">
+          {services
+            ?.slice(-4) // take the last 4 items
+            .map((service, index) => (
+              <li key={index} className="flex items-center">
+                <span className={`mr-2 ${accentColor}`}>●</span>
+                <span className="text-gray-700">{service}</span>
+              </li>
+            ))}
+        </ul>
 
 
         {/* Link */}

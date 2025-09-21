@@ -4,7 +4,7 @@ const FloatingWhatsApp = () => {
     return (
         <div className="fixed bottom-6 right-6 z-50">
             <a
-                href="https://wa.me/971551234567?text=Hi%2C%20I%20would%20like%20to%20discuss%20my%20construction%20project%20with%20you."
+                href="https://wa.me/+971552146089?text=Hi%2C%20I%20would%20like%20to%20discuss%20my%20construction%20project%20with%20you."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex h-14 w-14 items-center justify-center rounded-full bg-green-500 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-green-600 hover:shadow-xl"

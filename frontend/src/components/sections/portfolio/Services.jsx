@@ -91,6 +91,7 @@ const Services = ({ services = [], isLoading, isError, fetchNextPage, hasNextPag
                 image: service.images?.[0] || "",
                 title: service.heading,
                 description: service.description,
+                subheading: service.subheading,
                 services: service.features,
                 linkText: "Learn More",
                 accentColor: "text-orange-500",

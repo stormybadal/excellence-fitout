@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
         {/* Left Column (Company Info) */}
         <div className="p-6 rounded-lg">
-          <h3 className="text-3xl font-bold text-yellow-500 mb-4">Dubai Construction Pro</h3>
+          <h3 className="text-3xl font-bold text-yellow-500 mb-4">Excellence interior & contracting llc</h3>
           <p className="text-lg mb-4">
             Leading construction and interior maintenance company in Dubai, delivering excellence in every project since 2010.
           </p>
@@ -60,11 +60,11 @@ const Footer = () => {
             </li>
             <li className="flex items-center space-x-2">
               <span className="text-orange-500">📞</span>
-              <a href="tel:+971501234567" className="hover:text-orange-500 transition-all">+971 50 123 4567</a>
+              <a href="tel:+971501234567" className="hover:text-orange-500 transition-all">+971552146089</a>
             </li>
             <li className="flex items-center space-x-2">
               <span className="text-orange-500">📧</span>
-              <a href="mailto:info@dubaiconstructionpro.com" className="hover:text-orange-500 transition-all">info@dubaiconstructionpro.com</a>
+              <a href="mailto:info@excellenceinteriors.com" className="hover:text-orange-500 transition-all">info@excellenceinteriors.com</a>
             </li>
             <li className="flex items-center space-x-2">
               <span className="text-orange-500">⚡</span>
@@ -76,7 +76,7 @@ const Footer = () => {
 
       {/* Bottom Copyright */}
       <div className="text-center mt-8 text-sm text-gray-400">
-        <p>&copy; 2025 Dubai Construction Pro. All Rights Reserved.</p>
+        <p>&copy; 2025 Excellence interior & contracting llc. All Rights Reserved.</p>
       </div>
     </footer>
   );

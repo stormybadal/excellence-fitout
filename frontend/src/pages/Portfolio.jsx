@@ -14,7 +14,7 @@ function Portfolio() {
   const [catError, setCatError] = useState(null);
   const [catLoading, setCatLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
-console.log("selected ",selectedCategory);
+  console.log("selected ", selectedCategory);
 
 
   useEffect(() => {
@@ -27,7 +27,7 @@ console.log("selected ",selectedCategory);
     isError,
     fetchNextPage,
     hasNextPage,
-  } = usePortfolio({ limit: 6 , category:selectedCategory});
+  } = usePortfolio({ limit: 6, category: selectedCategory });
 
   const allServices = data?.pages.flatMap((page) => page.entries) || [];
 
@@ -60,21 +60,21 @@ console.log("selected ",selectedCategory);
         description="Comprehensive construction and interior solutions tailored to meet your specific needs and exceed expectations"
       />
 
-<TabBar categories={categories} 
+      <TabBar categories={categories}
         onSelectCategory={(category) => setSelectedCategory(category)}
 
-/>
-   <Services
-  services={allServices}
-  isLoading={isLoading}
-  isError={isError}
-  fetchNextPage={fetchNextPage}
-  hasNextPage={hasNextPage}
-/>
+      />
+      <Services
+        services={allServices}
+        isLoading={isLoading}
+        isError={isError}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+      />
 
       <Experties />
       <OurProcess />
-<Testimonials/>
+      <Testimonials />
       <GetStartedSection
         heading="Ready to Start"
         subheading="Your Project?"

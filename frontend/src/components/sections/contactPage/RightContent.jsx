@@ -6,14 +6,14 @@ function RightContent() {
       icon: <IoCall className="text-2xl text-white" />,
       iconBg: "bg-gradient-to-r from-orange-400 to-orange-600",
       title: "Phone",
-      lines: ["+971 50 123 4567", "+971 4 567 8910"],
+      lines: ["+971552146089"],
       tagline: "24/7 Emergency services available.",
     },
     {
       icon: <IoMail className="text-2xl text-white" />,
       iconBg: "bg-gradient-to-r from-blue-400 to-blue-600",
       title: "Email",
-      lines: ["info@dubaiconstructionpro.com", "projects@dubaiconstructionpro.com"],
+      lines: ["info@excellenceinteriors.com"],
       tagline: "We respond within 2 hours.",
     },
     {
@@ -33,7 +33,7 @@ function RightContent() {
   ];
 
   return (
-    <div className="flex flex-col justify-center space-y-6 py-12">
+    <div className="flex flex-col justify-center space-y-5 py-12">
       {/* Header */}
       <h2
         className="inline-block w-fit rounded-full px-6 py-2 text-sm font-semibold text-white shadow-md"
@@ -85,7 +85,7 @@ function RightContent() {
 
       {/* Action Buttons */}
       <div className="mt-4 flex gap-4">
-        <button
+        {/* <button
           className="w-1/2 rounded-md px-4 py-2 font-semibold text-white transition"
           style={{
             background:
@@ -93,9 +93,12 @@ function RightContent() {
           }}
         >
           Call Now
-        </button>
+        </button> */}
         <button
-          className="w-1/2 rounded-md px-4 py-2 font-semibold text-white transition"
+          onClick={() =>
+            window.open("https://wa.me/+971552146089?text=Hi%2C%20I%20would%20like%20to%20discuss%20my%20construction%20project%20with%20you.", "_blank")
+          }
+          className="w-full rounded-md px-4 py-2 font-semibold text-white transition"
           style={{
             background:
               "linear-gradient(135deg, rgba(250,114,2,1) 0%, rgba(253,92,29,1) 43%, rgba(235,19,84,1) 100%)",
