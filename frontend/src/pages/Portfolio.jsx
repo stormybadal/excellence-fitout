@@ -54,7 +54,7 @@ console.log("selected ",selectedCategory);
   return (
     <>
       <PageHeader
-        bgColorClass="bg-gradient-to-r from-red-500 to-yellow-500"
+        bgColorClass="bg-gradient-to-r from-red-500 to-yellow-500 "
         heading="Our Service &"
         subheading="Portfolio"
         description="Comprehensive construction and interior solutions tailored to meet your specific needs and exceed expectations"
