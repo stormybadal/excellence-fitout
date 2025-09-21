@@ -1,7 +1,7 @@
-import { GalleryImage } from "../models/gallery.model.js";
+import { Gallery } from "../models/gallery.model.js";
 
 /**
- * @module repositories/galleryImage
+ * @module repositories/gallery
  * Repository for standalone gallery images
  *
  * Includes:
@@ -12,45 +12,45 @@ import { GalleryImage } from "../models/gallery.model.js";
  */
 
 export class GalleryRepo {
-    constructor (model = GalleryImage) {
-        this.model = model;
-    }
+  constructor(model = Gallery) {
+    this.model = model;
+  }
 
-    // Insert a new image
-    async insert(data) {
-        return await this.model.create(data);
-    }
+  // Insert a new image
+  async insert(data) {
+    return await this.model.create(data);
+  }
 
-    // Find an image by its ID
-    async findById(id) {
-        return await this.model.findById(id);
-    }
+  // Find an image by its ID
+  async findById(id) {
+    return await this.model.findById(id);
+  }
 
-    // Delete an image by its ID
-    async delete(id) {
-        return await this.model.findByIdAndDelete(id);
-    }
+  // Delete an image by its ID
+  async delete(id) {
+    return await this.model.findByIdAndDelete(id);
+  }
 
-    // Fetch all images with pagination
-    async findAll({ page = 1, limit = 10 } = {}) {
-        const skip = (page - 1) * limit;
+  // Fetch all images with pagination
+  async findAll({ page = 1, limit = 10 } = {}) {
+    const skip = (page - 1) * limit;
 
-        const [entries, total] = await Promise.all([
-            this.model
-                .find()
-                .sort({ createdAt: -1 }) // newest first
-                .skip(skip)
-                .limit(limit),
-            this.model.countDocuments(),
-        ]);
+    const [entries, total] = await Promise.all([
+      this.model
+        .find()
+        .sort({ createdAt: -1 }) // newest first
+        .skip(skip)
+        .limit(limit),
+      this.model.countDocuments(),
+    ]);
 
-        return {
-            entries,
-            total,
-            page,
-            pages: Math.ceil(total / limit),
-        };
-    }
+    return {
+      entries,
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+    };
+  }
 }
 
 // Export an instance
