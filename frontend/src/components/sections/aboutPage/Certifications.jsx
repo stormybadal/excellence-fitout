@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../../shared/Heading.Jsx';
+import Heading from '../../shared/Heading.jsx';
 
 const certifications = [
   {
@@ -28,7 +28,7 @@ const Certifications = () => {
   return (
     <section className="py-16 px-4 bg-white text-gray-800">
 
-<Heading  title="Certifications &" highlight="Accreditations" description="Recognized for our commitment to quality and safety"   addBreakLine={true}/> 
+      <Heading title="Certifications &" highlight="Accreditations" description="Recognized for our commitment to quality and safety" addBreakLine={true} />
 
       <div className="p-8 grid sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {certifications.map((cert, index) => (

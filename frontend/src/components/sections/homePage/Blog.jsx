@@ -1,6 +1,6 @@
 import React from "react";
 import { useBlogs } from "../../../hook/useBlogs";
-import Heading from '../../shared/Heading.Jsx';
+import Heading from '../../shared/Heading.jsx';
 import BlogCard from "../../shared/BlogCard";
 import { useNavigate } from "react-router-dom";
 

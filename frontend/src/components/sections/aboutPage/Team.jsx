@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../../shared/Heading.Jsx';
+import Heading from '../../shared/Heading.jsx';
 
 const teamMembers = [
   {
@@ -32,11 +32,11 @@ const teamMembers = [
   }
 ];
 
-const Team= () => {
+const Team = () => {
   return (
     <section className="py-16 px-4 bg-[var(--color-background)] text-gray-800">
 
-<Heading  title="Meet Our" highlight="Expert Team" description="The professionals behind our success"   addBreakLine={true}/> 
+      <Heading title="Meet Our" highlight="Expert Team" description="The professionals behind our success" addBreakLine={true} />
 
       <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {teamMembers.map((member, index) => (

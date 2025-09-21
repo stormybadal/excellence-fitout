@@ -1,12 +1,12 @@
 import React from 'react';
 import { FaBullseye, FaAward } from 'react-icons/fa';
-import Heading from '../../shared/Heading.Jsx';
+import Heading from '../../shared/Heading.jsx';
 
 const MissionVision = () => {
   return (
     <section className="py-20 px-4 bg-white text-gray-800">
 
-<Heading title="Our Mission" highlight="& Vision"/>
+      <Heading title="Our Mission" highlight="& Vision" />
 
       <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
         {/* Mission Card */}
