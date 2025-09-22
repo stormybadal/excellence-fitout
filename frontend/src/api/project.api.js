@@ -33,7 +33,11 @@ export const fetchProjectById = async (id) => {
 // Create new project (requires authentication)
 export const createProject = async (projectData) => {
     try {
-        const response = await client.post("/project", projectData);
+        const response = await client.post("/project", projectData,{
+      headers: {
+        "Content-Type": "multipart/form-data", // ✅ required for multer
+      },
+    })
         return response.data;
     } catch (err) {
         throw err.response?.data || new Error("Failed to create project");

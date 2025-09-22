@@ -12,8 +12,12 @@ export const fetAllBlog = async ({ page, limit }) => {
 
 export const createBlog = async (blogData) => {
   try {
-    // console.log("blogData", blogData);
-    const response = await client.post("/blog", blogData);
+    console.log("blogData",blogData);
+    const response = await client.post("/blog", blogData,{
+      headers: {
+        "Content-Type": "multipart/form-data", // ✅ required for multer
+      },
+    });
     return response.data;
   } catch (err) {
     throw err.response?.data || new Error("Failed to create blog");

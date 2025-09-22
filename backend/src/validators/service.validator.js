@@ -10,7 +10,7 @@ export const createServiceSchema = z.object({
     .array(z.string().min(1, "Feature cannot be empty"))
     .min(1, "At least one feature is required"),
   category: z.string().min(3, "Category must be at least 3 characters long").trim(),
-});
+}).loose();
 
 // Update blog info
 export const updateServiceInfoSchema = z.object({

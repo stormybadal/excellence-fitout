@@ -33,7 +33,7 @@ const [addingNewCategory, setAddingNewCategory] = useState(false);
     isFetchingNextPage,
   } = usePortfolio({ limit: 9 });
 
-  // console.log("Services data:", data);
+  console.log("Services data:", data);
 
   // Flatten paginated data
  const services = data?.pages.flatMap((page) => page.entries) || [];
