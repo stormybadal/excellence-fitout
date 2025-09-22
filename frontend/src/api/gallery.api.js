@@ -17,10 +17,10 @@ export const fetchAllGalleryImages = async (params = {}) => {
 
 // Get gallery image by ID
 export const fetchGalleryImageById = async (id) => {
-    console.log("fetch gallery image by id in gallery api -", id);
+    // console.log("fetch gallery image by id in gallery api -", id);
     try {
         const response = await client.get(`/gallery/${id}`);
-        console.log("gallery image details response", response.data);
+        // console.log("gallery image details response", response.data);
         return response.data;
     } catch (err) {
         throw err.response?.data || new Error("Failed to fetch gallery image");

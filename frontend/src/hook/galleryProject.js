@@ -30,7 +30,7 @@ export const useInfiniteGallery = (params = {}) => {
 
 // Hook for fetching a single gallery image by ID
 export const useGalleryImage = (id) => {
-    console.log("fetch gallery image by id in gallery hook-", id);
+    // console.log("fetch gallery image by id in gallery hook-", id);
     return useQuery({
         queryKey: ["gallery-image", id],
         queryFn: () => fetchGalleryImageById(id),

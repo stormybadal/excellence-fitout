@@ -33,7 +33,7 @@ const [addingNewCategory, setAddingNewCategory] = useState(false);
     isFetchingNextPage,
   } = usePortfolio({ limit: 9 });
 
-  console.log("Services data:", data);
+  // console.log("Services data:", data);
 
   // Flatten paginated data
  const services = data?.pages.flatMap((page) => page.entries) || [];
@@ -98,10 +98,10 @@ const handleSubmit = async () => {
 
     // Actual files
     formData.images.forEach(imgObj => fd.append("images", imgObj.file));
-    console.log("FormData entries:");
-    for (let pair of fd.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]);
-    }
+    // console.log("FormData entries:");
+    // for (let pair of fd.entries()) {
+    //   console.log(pair[0]+ ', ' + pair[1]);
+    // }
 
     if (editing) await updatePortfolio(editing._id, fd);
     else await createPortfolio(fd);

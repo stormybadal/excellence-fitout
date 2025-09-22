@@ -19,10 +19,10 @@ export const fetchAllProjects = async (params = {}) => {
 
 // Get project by ID
 export const fetchProjectById = async (id) => {
-    console.log('fetch project by id in project api-', id);
+    // console.log('fetch project by id in project api-', id);
     try {
         const response = await client.get(`/project/${id}`);
-        console.log('project details response', response.data);
+        // console.log('project details response', response.data);
         return response.data;
     } catch (err) {
         throw err.response?.data || new Error("Failed to fetch project details");

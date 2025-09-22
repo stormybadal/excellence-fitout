@@ -117,8 +117,8 @@ function LeftContactForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 py-6">
-      <div className="w-full max-w-2xl space-y-6 rounded-xl bg-white p-8 shadow-2xl">
+    <div className="flex min-h-screen items-center justify-center lg:px-4 py-6 ">
+      <div className="w-full max-w-2xl space-y-6 rounded-xl bg-white lg:p-8 px-3 py-4 shadow-2xl ">
         <div className="space-y-3">
           <h2
             className="inline-block rounded-full px-6 py-2 text-sm font-semibold text-white shadow-md"

@@ -41,7 +41,7 @@ const seedUser = async () => {
         });
 
         await user.save();
-        console.log("🎉 User saved successfully:", user);
+        // console.log("🎉 User saved successfully:", user);
         process.exit(0);
     } catch (err) {
         console.error("❌ Error seeding user:", err);

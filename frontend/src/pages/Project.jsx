@@ -11,7 +11,7 @@ const Project = () => {
     }, []);
 
     const allProjects = data?.pages?.flatMap((page) => page.data.entries || []) || [];
-    console.log("allProjects", allProjects);
+    // console.log("allProjects", allProjects);
 
     // Infinite scroll observer
     const loadMoreRef = useRef();

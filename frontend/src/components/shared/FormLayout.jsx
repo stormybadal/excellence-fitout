@@ -98,7 +98,7 @@ const FormsLayout = forwardRef(({ fields, onSubmit, submitLabel = "Submit", disa
     <motion.form
       ref={ref} // forward ref to the form
       onSubmit={handleSubmit}
-      className="mx-auto w-full max-w-md space-y-4 rounded-xl bg-white p-6 shadow-xl"
+      className="mx-auto w-full max-w-md space-y-4 rounded-xl px-4 py-5 shadow-xl "
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
     >
@@ -113,7 +113,7 @@ const FormsLayout = forwardRef(({ fields, onSubmit, submitLabel = "Submit", disa
               name={field.name}
               placeholder={field.placeholder}
               required={field.required}
-              className="mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full resize-none rounded-md border px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               rows={field.rows || 4}
             />
           ) : field.type === "dropdown" ? (

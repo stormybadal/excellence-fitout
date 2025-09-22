@@ -12,7 +12,7 @@ export const fetAllBlog = async ({ page, limit }) => {
 
 export const createBlog = async (blogData) => {
   try {
-    console.log("blogData", blogData);
+    // console.log("blogData", blogData);
     const response = await client.post("/blog", blogData);
     return response.data;
   } catch (err) {
@@ -38,10 +38,10 @@ export const deleteBlog = async (blogId) => {
   }
 };
 export const fetchBlogById = async (id) => {
-  console.log("id", id);
+  // console.log("id", id);
 
   try {
-    console.log("id", id);
+
 
     const response = await client.get(`/blog/${id}`);
     return response.data.data; // assuming your API returns { data: blog }

@@ -14,7 +14,7 @@ function Portfolio() {
   const [catError, setCatError] = useState(null);
   const [catLoading, setCatLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  console.log("selected ", selectedCategory);
+  // console.log("selected ", selectedCategory);
 
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function Portfolio() {
 
 
   return (
-    <>
+    <div className="relative overflow-x-hidden">
       <PageHeader
         bgColorClass="bg-gradient-to-r from-red-500 to-yellow-500 "
         heading="Our Service &"
@@ -91,7 +91,7 @@ function Portfolio() {
           link: "#projects",
         }}
       />
-    </>
+    </div>
   );
 }
 

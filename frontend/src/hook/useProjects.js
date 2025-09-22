@@ -26,7 +26,7 @@ export const useInfiniteProjects = (params = {}) => {
 
 // Hook for fetching a single project by ID
 export const useProject = (id) => {
-    console.log("fetch project by id in project hook-", id);
+    // console.log("fetch project by id in project hook-", id);
     return useQuery({
         queryKey: ["project", id],
         queryFn: () => fetchProjectById(id),

@@ -36,21 +36,21 @@ const OurStory = () => {
 
               <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
                 <p>
-                  Founded in 2010, Dubai Construction Pro began as a vision to transform 
-                  the construction landscape in the UAE. What started as a small team of 
-                  passionate builders has grown into one of Dubai's most trusted 
+                  Founded in 2010, Excellence interior & contracting llc began as a vision to transform
+                  the construction landscape in the UAE. What started as a small team of
+                  passionate builders has grown into one of Dubai's most trusted
                   construction and interior maintenance companies.
                 </p>
 
                 <p>
-                  Over the years, we have successfully completed more than 500 projects, 
-                  ranging from residential villas to commercial high-rises, each reflecting 
+                  Over the years, we have successfully completed more than 500 projects,
+                  ranging from residential villas to commercial high-rises, each reflecting
                   our commitment to quality, innovation, and client satisfaction.
                 </p>
 
                 <p>
-                  Today, we continue to push boundaries, embracing sustainable building 
-                  practices and cutting-edge technologies to create spaces that not only 
+                  Today, we continue to push boundaries, embracing sustainable building
+                  practices and cutting-edge technologies to create spaces that not only
                   meet but exceed our clients' expectations.
                 </p>
               </div>
@@ -60,14 +60,14 @@ const OurStory = () => {
           {/* Right Content */}
           <div className="relative">
             <div className="relative overflow-hidden rounded-2xl">
-           <video
-  src={constructionVideo} // import your mp4 like the image
-  autoPlay
-  loop
-  muted
-  playsInline
-  className="w-full h-[400px] lg:h-[500px] object-cover rounded-2xl"
-/>
+              <video
+                src={constructionVideo} // import your mp4 like the image
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-[400px] lg:h-[500px] object-cover rounded-2xl"
+              />
 
 
               {/* Licensed Badge */}

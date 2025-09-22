@@ -360,7 +360,7 @@ const [formData, setFormData] = useState({
     isFetchingNextPage,
   } = useBlogs({ limit: 9 });
 
-  console.log("BlogSetting data:", data);
+  // console.log("BlogSetting data:", data);
   
   useEffect(() => {
     if (!formData.image) {
@@ -450,8 +450,8 @@ const handleSubmit = async () => {
     }
 
     const formDataObj = Object.fromEntries(formPayload.entries());
-console.log(formDataObj);
-    console.log("Submitting form with data:", formData);
+// console.log(formDataObj);
+//     console.log("Submitting form with data:", formData);
     if (editing) {
       await updateBlog(editing._id, formPayload);
       toast.success("Blog updated successfully!");

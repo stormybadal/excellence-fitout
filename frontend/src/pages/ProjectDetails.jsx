@@ -10,7 +10,7 @@ const ProjectDetails = () => {
     // const { id } = useParams();
     const { id } = useParams({ from: "/project/$id" });
 
-    console.log("id in project details", id);
+    // console.log("id in project details", id);
     const navigate = useNavigate();
     const { data, isLoading, error } = useProject(id);
 

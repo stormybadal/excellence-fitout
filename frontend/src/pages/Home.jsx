@@ -16,7 +16,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden ">
       <Hero />
 
       {/* Section separator */}
