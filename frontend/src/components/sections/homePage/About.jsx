@@ -27,7 +27,7 @@ const About = () => {
                             </h2>
                         </div>
 
-                        <div className="space-y-6 text-lg leading-relaxed text-gray-700">
+                        <div className="space-y-6 text-lg leading-relaxed text-gray-700 text-justify">
                             <p>
                                 We are a Dubai-based construction and interior fit-out company delivering end-to-end solutions for
                                 commercial and residential spaces. From due diligence and design to permits, execution, and handover,
