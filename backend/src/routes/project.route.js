@@ -21,9 +21,9 @@ router.route("/").get(fetchAll);
 router.route("/:id").get(fetch);
 
 // Private routes (require authentication)
-router.route("/").post(verifyJwt, uploadSingle("image"), create);
-router.route("/:id").patch(verifyJwt, updateInfo);
-router.route("/:id").delete(verifyJwt, remove);
-router.route("/:id/image").patch(verifyJwt, uploadSingle("image"), updateImage);
+router.route("/").post(uploadSingle("image"), create);
+router.route("/:id").patch(updateInfo);
+router.route("/:id").delete(remove);
+router.route("/:id/image").patch(uploadSingle("image"), updateImage);
 
 export default router;

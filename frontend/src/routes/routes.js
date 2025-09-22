@@ -232,13 +232,7 @@ export const routes = [
   //   layout: "DashboardLayout",
   //   showInNavbar: false,
   // },
-  {
-    path: "/dashboard/services",
-    name: "Services",
-    layout: "DashboardLayout",
-    showInNavbar: false,
-    icon: null,
-  },
+
   {
     path: "/dashboard/blogs",
     name: "BlogsSettings",
@@ -250,7 +244,21 @@ export const routes = [
   // 🔹 New Dashboard Gallery Route
   {
     path: "/dashboard/gallery",
-    name: "GallerySettings",
+    name: "Gallery",
+    layout: "DashboardLayout",
+    showInNavbar: false,
+    icon: null,
+  },
+   {
+    path: "/dashboard/projects",
+    name: "ProjectSettings",
+    layout: "DashboardLayout",
+    showInNavbar: false,
+    icon: null,
+  },
+    {
+    path: "/dashboard/services",
+    name: "Services",
     layout: "DashboardLayout",
     showInNavbar: false,
     icon: null,

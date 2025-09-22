@@ -34,8 +34,8 @@ router.route("/:id").get(fetch);
 // Private routes
 router
   .route("/:id")
-  .patch(verifyJwt, validate(updateBlogInfoSchema), updateInfo)
-  .delete(verifyJwt, remove);
+  .patch(validate(updateBlogInfoSchema), updateInfo)
+  .delete(remove);
 router.route("/:id/image").patch(verifyJwt, uploadSingle("image"), updateImage);
 router.route("/:id/publish").patch(verifyJwt, validate(updateBlogPublishSchema), updatePublish);
 

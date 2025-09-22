@@ -27,12 +27,17 @@ export const fetchPortfolioById = async (id) => {
 
 export const createPortfolio = async (portfolioData) => {
   try {
-    const response = await client.post("/service", portfolioData);
+    const response = await client.post("/service", portfolioData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // ✅ required for multer
+      },
+    });
     return response.data;
   } catch (err) {
     throw err.response?.data || new Error("Failed to create portfolio item");
   }
 };
+
 
 export const updatePortfolio = async (portfolioId, portfolioData) => {
   try {

@@ -14,7 +14,7 @@ router.route("/").get(fetchAll);
 router.route("/:id").get(fetch);
 
 // Private routes
-router.route("/").post(verifyJwt, uploadSingle("image"), create);
-router.route("/:id").delete(verifyJwt, remove);
+router.route("/").post( uploadSingle("image"), create);
+router.route("/:id").delete(remove);
 
 export default router;

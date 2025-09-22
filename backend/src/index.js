@@ -1,9 +1,7 @@
-
-
-import path from "path";
+// import path from "path";
 import dotenv from "dotenv";
-
-dotenv.config({ path: path.resolve("./.env") }); // absolute path ensures PM2 can find it
+dotenv.config({ path: "./.env" });
+// dotenv.config({ path: path.resolve("./.env") }); // absolute path ensures PM2 can find it
 
 import { app } from "./app.js";
 import { connectDB } from "./configs/db.config.js";
@@ -18,7 +16,7 @@ import { connectDB } from "./configs/db.config.js";
  */
 
 // Load environment variables
-dotenv.config({ path: "./.env" });
+
 
 // const port = process.env.PORT || 8080;
 // app.listen(port, () => {

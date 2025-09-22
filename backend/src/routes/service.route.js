@@ -24,7 +24,7 @@ const router = Router();
 // Public routes
 router
   .route("/")
-  .post(verifyJwt, uploadMultiple("images", 6), validate(createServiceSchema), create);
+  .post( uploadMultiple("images", 6), validate(createServiceSchema), create);
 router.route("/").get(fetchAll);
 
 router.route("/category").get(fetchCategories);
@@ -34,8 +34,8 @@ router.route("/:id").get(fetch);
 // Private routes
 router
   .route("/:id")
-  .put(verifyJwt, validate(updateServiceInfoSchema), updateInfo)
-  .delete(verifyJwt, remove);
+  .patch(validate(updateServiceInfoSchema), updateInfo)
+  .delete(remove);
 router.route("/:id/images").patch(verifyJwt, uploadMultiple("images", 6), updateImages);
 
 export default router;
