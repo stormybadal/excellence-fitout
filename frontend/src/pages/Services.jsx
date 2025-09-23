@@ -3,7 +3,9 @@ import axios from "axios";
 import Button from "../components/ui/Button";
 import { MoreHorizontal } from "lucide-react";
 import { usePortfolio } from "../hook/usePortfolio";
-import { createPortfolio, updatePortfolio, deletePortfolio } from "../api/portfolio.api";
+import { createPortfolio, updatePortfolio, deletePortfolio, updateImages } from "../api/portfolio.api";
+import { useQueryClient } from "@tanstack/react-query";
+import {toast,Toaster} from 'react-hot-toast';
 
 export default function Services() {
   const [open, setOpen] = useState(false);
@@ -20,9 +22,12 @@ export default function Services() {
     category: "",
   });
 
-  const [search, setSearch] = useState("");
-  const [filterCategory, setFilterCategory] = useState("All");
-const [addingNewCategory, setAddingNewCategory] = useState(false);
+    const [search, setSearch] = useState("");
+    const [filterCategory, setFilterCategory] = useState("All");
+    const [addingNewCategory, setAddingNewCategory] = useState(false);
+    const [removedImages, setRemovedImages] = useState([]);
+
+      const queryClient = useQueryClient();
 
   // ✅ Use React Query hook instead of manual fetch
   const {
@@ -32,8 +37,6 @@ const [addingNewCategory, setAddingNewCategory] = useState(false);
     hasNextPage,
     isFetchingNextPage,
   } = usePortfolio({ limit: 9 });
-
-  console.log("Services data:", data);
 
   // Flatten paginated data
  const services = data?.pages.flatMap((page) => page.entries) || [];
@@ -45,19 +48,19 @@ const [addingNewCategory, setAddingNewCategory] = useState(false);
   const handleFeaturesChange = (e) =>
     setFormData({ ...formData, features: e.target.value.split(",") });
 
-const handleImageChange = (e) => {
-  const files = Array.from(e.target.files);
+// const handleImageChange = (e) => {
+//   const files = Array.from(e.target.files);
 
-  const newImages = files.map((file) => ({
-    file,                   // actual File object for FormData
-    preview: URL.createObjectURL(file), // for showing preview in UI
-  }));
+//   const newImages = files.map((file) => ({
+//     file,                   // actual File object for FormData
+//     preview: URL.createObjectURL(file), // for showing preview in UI
+//   }));
 
-  setFormData((prev) => ({
-    ...prev,
-    images: [...prev.images, ...newImages],
-  }));
-};
+//   setFormData((prev) => ({
+//     ...prev,
+//     images: [...prev.images, ...newImages],
+//   }));
+// };
 
 
 
@@ -77,50 +80,99 @@ const handleImageChange = (e) => {
   };
 
   // Open modal for edit
-  const openEditModal = (service) => {
+//   const openEditModal = (service) => {
+//     setEditing(service);
+//     setFormData({ ...service });
+//     setOpen(true);
+//   };
+
+  const handleEdit = (service) => {
     setEditing(service);
-    setFormData({ ...service });
+
+    setFormData({
+        heading: service.heading || "",
+        tagline: service.tagline || "",
+        subheading: service.subheading || "",
+        description: service.description || "",
+        category: service.category || "",
+        features: service.features || [],
+        images: service.images || [], // preload existing image URLs
+    });
+
+    setRemovedImages([]); // reset removed
     setOpen(true);
-  };
+    };
+
 
   // Submit form
 const handleSubmit = async () => {
   try {
-    const fd = new FormData();
-    fd.append("heading", formData.heading);
-    fd.append("tagline", formData.tagline);
-    fd.append("subheading", formData.subheading);
-    fd.append("description", formData.description);
-    fd.append("category", formData.category);
+    if (!editing) {
+      // Create new portfolio
+      const fd = new FormData();
+      fd.append("heading", formData.heading);
+      fd.append("tagline", formData.tagline);
+      fd.append("subheading", formData.subheading);
+      fd.append("description", formData.description);
+      fd.append("category", formData.category);
+      formData.features.forEach((f) => fd.append("features[]", f));
+      formData.images.forEach((imgObj) => fd.append("images", imgObj.file));
 
-    // Features array
-    formData.features.forEach(f => fd.append("features[]", f));
+      await createPortfolio(fd);
+      toast.success("Service created successfully!");
+    } else {
+      // Update portfolio data
+      await updatePortfolio(editing._id, {
+        heading: formData.heading,
+        tagline: formData.tagline,
+        subheading: formData.subheading,
+        description: formData.description,
+        category: formData.category,
+        features: formData.features,
+      });
+      toast.success("Service updated successfully!");
 
-    // Actual files
-    formData.images.forEach(imgObj => fd.append("images", imgObj.file));
-    // console.log("FormData entries:");
-    // for (let pair of fd.entries()) {
-    //   console.log(pair[0]+ ', ' + pair[1]);
-    // }
+      // Update images if there are new ones or removed images
+      const hasNewImages = formData.images.some((img) => img.file);
+      if (removedImages.length > 0 || hasNewImages) {
+        const fd = new FormData();
+        if (removedImages.length > 0) {
+          fd.append("removeImages", JSON.stringify(removedImages));
+        }
+        formData.images.forEach((imgObj) => {
+          if (imgObj.file) fd.append("images", imgObj.file);
+        });
 
-    if (editing) await updatePortfolio(editing._id, fd);
-    else await createPortfolio(fd);
+        await updateImages(editing._id, fd);
+        toast.success("Service images updated successfully!");
+      }
+    }
 
+    // Refresh data after all updates
+    queryClient.invalidateQueries(["portfolio"]);
+
+    // Reset state and close modal
     setOpen(false);
     setEditing(null);
-    fetchServices();
+    setRemovedImages([]);
   } catch (err) {
-    console.error(err);
+    console.error("Submit failed:", err);
+    toast.error(
+      err?.response?.data?.message || "Something went wrong! Please try again."
+    );
   }
 };
+
 
   // Delete
   const confirmDelete = async () => {
     try {
       if (editing?._id) {
         await deletePortfolio(editing._id);
+        toast.success("Service deleted successfully!");
       }
       setDeleteConfirm(false);
+      queryClient.invalidateQueries(["portfolio"]);
       setEditing(null);
       fetchServices();
     } catch (err) {
@@ -141,6 +193,33 @@ const handleSubmit = async () => {
       filterCategory === "All" || s.category === filterCategory;
     return matchesSearch && matchesCategory;
   });
+
+  const handleImageChange = (e) => {
+  const files = Array.from(e.target.files);
+
+  const newImages = files.map((file) => ({
+    file,
+    preview: URL.createObjectURL(file),
+  }));
+
+  setFormData((prev) => ({
+    ...prev,
+    images: [...prev.images, ...newImages],
+  }));
+};
+
+const handleRemoveImage = (img, index) => {
+  if (typeof img === "string") {
+    // it's an existing URL → track for removal
+    setRemovedImages((prev) => [...prev, img]);
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    images: prev.images.filter((_, i) => i !== index),
+  }));
+};
+
 
   return (
     <div className="p-4">
@@ -209,11 +288,11 @@ const handleSubmit = async () => {
                     ))}
                 </td>
                 <td className="p-3 text-right flex justify-end gap-2">
-                    <button
-                    onClick={() => openEditModal(srv)}
-                    className="px-3 py-1 text-xs font-medium text-blue-600 border border-blue-200 rounded-lg hover:bg-blue-50 transition"
+                     <button
+                        onClick={() => handleEdit(srv)}
+                        className="px-3 py-1 text-xs font-medium text-blue-600 border border-blue-200 rounded-lg hover:bg-blue-50 transition"
                     >
-                    Edit
+                        Edit
                     </button>
                     <button
                     onClick={() => {
@@ -257,12 +336,12 @@ const handleSubmit = async () => {
               ))}
             </div>
             <div className="mt-3 flex gap-3">
-              <button
-                onClick={() => openEditModal(srv)}
-                className="text-blue-600 hover:underline"
-              >
-                Edit
-              </button>
+                <button
+                    onClick={() => handleEdit(srv)}
+                    className="text-blue-600 hover:underline"
+                >
+                    Edit
+                </button>
               <button
                 onClick={() => {
                   setEditing(srv);
@@ -399,16 +478,27 @@ const handleSubmit = async () => {
                   onChange={handleImageChange}
                   className="w-full text-sm"
                 />
-                <div className="flex gap-2 mt-2 flex-wrap">
-  {formData.images.map((img, i) => (
-    <img
-      key={i}
-      src={img.preview} // use preview for UI
-      alt="preview"
-      className="w-20 h-20 rounded-md object-cover"
-    />
-  ))}
-</div>
+                <div className="flex flex-wrap gap-4">
+                    {formData.images.map((img, index) => (
+                         <div
+                            key={index}
+                            className="relative w-32 h-32 border rounded overflow-hidden"
+                            >
+                            <img
+                                src={typeof img === "string" ? img : img.preview}
+                                alt="preview"
+                                className="object-cover w-full h-full"
+                            />
+                            <button
+                                type="button"
+                                className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
+                                onClick={() => handleRemoveImage(img, index)}
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    ))}
+                </div>
 
               </div>
             </div>

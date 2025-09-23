@@ -69,3 +69,16 @@ export const fetchCategories = async () => {
     throw err.response?.data || new Error("Failed to fetch categories");
   }
 };
+
+export const updateImages = async (portfolioId, formData) => {
+  try {
+    const response = await client.patch(`/service/${portfolioId}/images`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw err.response?.data || new Error("Failed to update portfolio images");
+  }
+};

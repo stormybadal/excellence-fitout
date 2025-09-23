@@ -22,7 +22,7 @@ export const create = asyncHandler(async (req, res) => {
     images: uploadedImages.map((img) => img.secure_url),
   });
 
-  res.status(201).json(new ApiResponse(201, service, "Service created successfully!"));
+  res.status(200).json(new ApiResponse(200, service, "Service created successfully!"));
 });
 
 // Get all services
@@ -77,6 +77,8 @@ export const updateInfo = asyncHandler(async (req, res) => {
 
 // Update service images by id
 export const updateImages = asyncHandler(async (req, res) => {
+  console.log("api called updateImages:", req.body);
+  console.log("id", req.params);
   const { id } = req.params;
   const { removeImages } = req.body; // array of URLs to remove
 
@@ -86,10 +88,19 @@ export const updateImages = asyncHandler(async (req, res) => {
 
   // Remove requested images
   let currentImages = service.images || [];
-  if (removeImages && Array.isArray(removeImages)) {
-    currentImages = currentImages.filter((img) => !removeImages.includes(img));
-  }
+  let removeImagesArray = [];
+    if (removeImages) {
+      try {
+        removeImagesArray = JSON.parse(removeImages);
+        console.log("RemoveImages", removeImagesArray)
+      } catch (err) {
+        throw new ApiError(400, "Invalid format for removeImages");
+      }
+    }
 
+    if (Array.isArray(removeImagesArray) && removeImagesArray.length > 0) {
+      currentImages = currentImages.filter((img) => !removeImagesArray.includes(img));
+    }
   // Upload new images if any
   let newImages = [];
   if (req.files && req.files.length > 0) {

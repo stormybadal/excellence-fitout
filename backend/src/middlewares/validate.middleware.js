@@ -4,6 +4,7 @@ import { ApiError } from "../utils/apiError.util.js";
 export const validate = (schema) => (req, res, next) => {
   try {
     // parse & replace req.body with safe data
+    console.log("Validating req.body:", req.body);
     req.body = schema.parse(req.body);
     next();
   } catch (err) {

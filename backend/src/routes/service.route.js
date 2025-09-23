@@ -36,6 +36,6 @@ router
   .route("/:id")
   .patch(validate(updateServiceInfoSchema), updateInfo)
   .delete(remove);
-router.route("/:id/images").patch(verifyJwt, uploadMultiple("images", 6), updateImages);
+router.route("/:id/images").patch(uploadMultiple("images", 6), updateImages);
 
 export default router;

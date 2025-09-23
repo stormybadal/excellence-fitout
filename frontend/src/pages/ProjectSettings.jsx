@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../components/ui/Button";
 import { useInfiniteProjects } from "../hook/useProjects";
-import { createProject, updateProject, deleteProject } from "../api/project.api";
+import { createProject, updateProject, deleteProject, updateProjectImage } from "../api/project.api";
+import { useQueryClient } from "@tanstack/react-query";
+import {toast} from "react-hot-toast";
 
 export default function ProjectSettings() {
   const [open, setOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [editing, setEditing] = useState(null);
+    const [preview, setPreview] = useState(null);
 
   const [formData, setFormData] = useState({
     projectName: "",
@@ -27,6 +30,8 @@ export default function ProjectSettings() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteProjects({ limit: 9 });
+  
+  const queryClient = useQueryClient();
 
   // Flatten all pages into a single projects array
   const projects = data?.pages.flatMap((page) => page.data.entries) || [];
@@ -35,16 +40,33 @@ export default function ProjectSettings() {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleImageChange = (e) => {
+ const handleFileChange = (e) => {
     const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, image: file }));
+
     if (file) {
-      setFormData({
-        ...formData,
-        image: file,
-        preview: URL.createObjectURL(file),
-      });
+      const objectUrl = URL.createObjectURL(file);
+      setPreview(objectUrl);
     }
   };
+
+    useEffect(() => {
+      if (!formData.image) {
+        setPreview("");
+        return;
+      }
+  
+      if (formData.image instanceof File) {
+        // New file selected
+        const objectUrl = URL.createObjectURL(formData.image);
+        setPreview(objectUrl);
+  
+        return () => URL.revokeObjectURL(objectUrl);
+      } else if (typeof formData.image === "string") {
+        // Existing URL (editing)
+        setPreview(formData.image);
+      }
+    }, [formData.image]);
 
   const openAddModal = () => {
     setEditing(null);
@@ -70,29 +92,48 @@ export default function ProjectSettings() {
     setOpen(true);
   };
 
-  const handleSubmit = async () => {
-    try {
-      const fd = new FormData();
-      fd.append("projectName", formData.projectName);
-      fd.append("shortDescription", formData.shortDescription);
-      fd.append("location", formData.location);
-      fd.append("duration", formData.duration);
-      fd.append("details", formData.details);
-      if (formData.image) fd.append("image", formData.image);
+const handleSubmit = async () => {
+  try {
+    const fd = new FormData();
+    fd.append("projectName", formData.projectName);
+    fd.append("shortDescription", formData.shortDescription);
+    fd.append("location", formData.location);
+    fd.append("duration", formData.duration);
+    fd.append("details", formData.details);
+    if (formData.image) fd.append("image", formData.image);
 
-      if (editing) await updateProject(editing._id, fd);
-      else await createProject(fd);
+    let response;
 
-      setOpen(false);
-      setEditing(null);
-    } catch (err) {
-      console.error(err);
+    if (editing) {
+      if (formData.image instanceof File) {
+        response = await updateProjectImage(editing._id, formData.image);
+        toast.success(response.message || "Project image updated successfully!");
+      }
+
+      response = await updateProject(editing._id, fd);
+      toast.success(response.message || "Project updated successfully!");
+    } else {
+      response = await createProject(fd);
+      toast.success(response.message || "Project created successfully!");
     }
-  };
+
+    // ✅ Refresh list and close modal only after success
+    queryClient.invalidateQueries(["project"]);
+    setOpen(false);
+    setEditing(null);
+  } catch (err) {
+    console.error("Error while saving project:", err);
+    toast.error(err.message || "Something went wrong. Please try again.");
+  }
+};
+
+
 
   const confirmDelete = async () => {
     try {
       if (editing?._id) await deleteProject(editing._id);
+      toast.success("Project deleted successfully!");
+      queryClient.invalidateQueries(["project"]);
       setDeleteConfirm(false);
       setEditing(null);
     } catch (err) {
@@ -257,13 +298,33 @@ export default function ProjectSettings() {
                 className="w-full rounded-md border px-4 py-2 text-sm min-h-[100px]"
               />
               <div>
-                <input type="file" onChange={handleImageChange} />
-                {formData.preview && (
+              {editing && editing.image && !preview && (
+                <div className="mb-3">
+                  <p className="text-sm font-medium">Current Image:</p>
                   <img
-                    src={formData.preview}
-                    alt="preview"
-                    className="mt-2 w-32 h-32 object-cover rounded-md"
+                    src={editing.image}
+                    alt="Current"
+                    className="mt-1 w-32 h-32 object-cover rounded"
                   />
+                </div>
+              )}
+              {/* File input for new image */}
+                <input
+                  type="file"
+                  name="image"
+                  onChange={handleFileChange}
+                  className="w-full rounded-md border px-3 py-2 text-sm"
+                />
+                {/* Show preview if new image selected */}
+                {preview && (
+                  <div className="mt-3">
+                    <p className="text-sm font-medium">New Image Preview:</p>
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="mt-1 w-32 h-32 object-cover rounded"
+                    />
+                  </div>
                 )}
               </div>
             </div>
