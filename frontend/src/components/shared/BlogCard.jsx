@@ -16,9 +16,9 @@ function BlogCard({ blog }) {
         />
 
         {/* Icon Circle */}
-        <div className="absolute -bottom-5 left-4 flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-blue-900 text-2xl text-white shadow">
+        {/* <div className="absolute -bottom-5 left-4 flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-blue-900 text-2xl text-white shadow">
           {blog.icon}
-        </div>
+        </div> */}
       </div>
 
       <div className="p-6 pt-8">

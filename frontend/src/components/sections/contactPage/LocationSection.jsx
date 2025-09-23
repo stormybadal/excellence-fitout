@@ -5,9 +5,9 @@ import Heading from '../../shared/Heading'
 const LocationSection = () => {
   return (
     <section className="py-20 px-4 bg-white">
-    
 
-<Heading  title="Our Office in" highlight="Business Bay" description="Located in the heart of Business Bay, Dubai"   addBreakLine={true}/> 
+
+      <Heading title="Our Office in" highlight="Business Bay" description="Located in the heart of Business Bay, Dubai" addBreakLine={true} />
 
 
       <div className="max-w-5xl mx-auto bg-gradient-to-b from-gray-100 to-gray-200 rounded-[30px] shadow-xl py-16 px-4 md:px-20 text-center">
@@ -16,7 +16,7 @@ const LocationSection = () => {
             <FaMapMarkerAlt />
           </div>
           <h3 className="text-xl font-bold text-gray-800 mb-1">Interactive Map</h3>
-          <p className="text-gray-600">Business Bay, Dubai, UAE</p>
+          <p className="text-gray-600">Office Location Coming Soon</p>
         </div>
       </div>
     </section>

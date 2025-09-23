@@ -24,14 +24,14 @@ const BlogDetails = () => {
        */}
 
       {/* Back Button */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+      <div className="bg-white shadow-sm mb-5">
+        <div className="max-w-7xl mx-auto px-4 py-4 mt-5">
           <button
             onClick={() => navigate('/blog')}
             className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-300"
           >
             <FaArrowLeft className="mr-2" />
-            Back to Goals
+            Back to Blogs
           </button>
         </div>
       </div>
@@ -52,11 +52,11 @@ const BlogDetails = () => {
 
         {/* Author Info (Fallback if not available) */}
         <div className="flex items-center gap-4 mb-6">
-          <img
+          {/* <img
             src={blog.author?.avatar || "https://via.placeholder.com/40"}
             alt={blog.author?.name || "Unknown Author"}
             className="w-10 h-10 rounded-full object-cover"
-          />
+          /> */}
           <div>
             <p className="text-gray-800 font-semibold">{blog.author?.name || "Admin"}</p>
             <p className="text-sm text-gray-500">

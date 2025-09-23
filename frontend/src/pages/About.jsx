@@ -4,7 +4,7 @@ import MissionVision from '../components/sections/aboutPage/MissionVission'
 import Team from '../components/sections/aboutPage/Team'
 import Certifications from '../components/sections/aboutPage/Certifications'
 import PageHeader from '../components/shared/PageHeader'
-import aboutHeroBG from '../assets/aboutPage/aboutHeroBG.webp'
+import aboutHeroBG from '../assets/aboutPage/aboutHeroBG.jpg'
 import GetStartedSection from '../components/shared/GetStartedSection'
 function About() {
   useEffect(() => {

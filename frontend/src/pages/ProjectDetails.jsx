@@ -31,7 +31,7 @@ const ProjectDetails = () => {
     if (error || !data?.data) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-center">
+                <div className="text-center ">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Project Not Found</h2>
                     <p className="text-gray-600 mb-6">The project you're looking for doesn't exist or has been removed.</p>
                     <button
@@ -52,7 +52,7 @@ const ProjectDetails = () => {
         <div className="min-h-screen bg-gray-50">
             {/* Back Button */}
             <div className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 py-4">
+                <div className="max-w-7xl mx-auto px-4 py-4 mt-5">
                     <button
                         onClick={() => navigate(-1)}
                         className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-300"
