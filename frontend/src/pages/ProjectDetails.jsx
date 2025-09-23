@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useProject } from "../hook/useProjects";
 import Loading from "../components/ui/Loading";
 import { FaArrowLeft, FaMapMarkerAlt, FaClock, FaCalendarAlt } from "react-icons/fa";
+import Loader from '../utils/Loader';
 
 
 const ProjectDetails = () => {
@@ -21,7 +22,8 @@ const ProjectDetails = () => {
     if (isLoading) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <Loading />
+                {/* <Loading /> */}
+                <Loader />
             </div>
         );
     }

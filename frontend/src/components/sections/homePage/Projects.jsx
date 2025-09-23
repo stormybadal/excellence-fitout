@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useProjects } from "../../../hook/useProjects";
 import Loading from "../../ui/Loading";
+import Loader from "../../../utils/Loader";
 
 const Projects = () => {
     const navigate = useNavigate();
@@ -19,7 +20,8 @@ const Projects = () => {
                             </span>
                         </h2>
                     </div>
-                    <Loading />
+                    {/* <Loading /> */}
+                    <Loader />
                 </div>
             </section>
         );

@@ -149,6 +149,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useGallery } from "../../../hook/galleryProject"; // 👈 import your gallery hook
+import Loader from "../../../utils/Loader";
 
 const Gallery = () => {
     const { data, isLoading, isError } = useGallery({ page: 1, limit: 100 }); // fetch all images (increase limit)
@@ -207,7 +208,7 @@ const Gallery = () => {
     if (isLoading) {
         return (
             <section className="py-12 text-center text-gray-600">
-                Loading gallery...
+                <Loader />
             </section>
         );
     }

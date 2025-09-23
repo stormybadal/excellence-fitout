@@ -216,7 +216,7 @@ const ContactForm = () => {
 
                     {/* Mini Testimonial */}
                     <blockquote className="mt-10 border-l-4 border-yellow-500 pl-5 text-lg italic text-gray-700">
-                        “CSC transformed our office space beautifully and on time. Highly recommend their team in Dubai.”
+                        “Excellence Interior and Construction transformed our office space beautifully and on time. Highly recommend their team in Dubai.”
                     </blockquote>
 
 

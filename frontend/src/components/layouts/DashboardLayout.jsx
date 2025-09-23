@@ -38,13 +38,15 @@ import { Outlet } from "@tanstack/react-router";
 import Loading from "../ui/Loading";
 import Sidebar from "./dashboard/Sidebar";
 import Header from "./dashboard/Header";
+import Loader from "../../utils/Loader";
 
 const DashboardLayout = () => {
   return (
     <Suspense
       fallback={
         <div>
-          <Loading />
+          {/* <Loading /> */}
+          <Loader />
         </div>
       }
     >

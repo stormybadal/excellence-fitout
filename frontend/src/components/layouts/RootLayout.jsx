@@ -39,6 +39,7 @@ import { Suspense } from "react";
 import Loading from "../ui/Loading";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Loader from "../../utils/Loader";
 
 const RootLayout = () => {
   const location = useLocation();
@@ -50,7 +51,9 @@ const RootLayout = () => {
     <Suspense
       fallback={
         <div>
-          <Loading />
+          {/* <Loading />
+           */}
+          <Loader />
         </div>
       }
     >
