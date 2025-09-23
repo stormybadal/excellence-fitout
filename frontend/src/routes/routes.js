@@ -1,135 +1,3 @@
-// export const routes = [
-//   {
-//     path: "/",
-//     name: "Home",
-//     showInNavbar: true,
-//     icon: null,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-//   {
-//     path: "/about",
-//     name: "About",
-//     showInNavbar: true,
-//     icon: null,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-//   {
-//     path: "/portfolio",
-//     name: "Portfolio",
-//     showInNavbar: true,
-//     icon: null,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-//   {
-//     path: "/portfolio/$slug",
-//     name: "PortfolioDetails",
-//     icon: null,
-//     showInNavbar: false,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-//   {
-//     path: "/project/$id",
-//     name: "ProjectDetails",
-//     icon: null,
-//     showInNavbar: false,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-
-//   // 🔹 New Gallery Routes
-//   {
-//     path: "/gallery",
-//     name: "Gallery",
-//     showInNavbar: true,
-//     icon: null,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-//   {
-//     path: "/gallery/$id",
-//     name: "GalleryDetails",
-//     icon: null,
-//     showInNavbar: false,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-
-//   {
-//     path: "/blog",
-//     name: "Blog",
-//     showInNavbar: true,
-//     icon: null,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-//   {
-//     path: "/blog/$slug",
-//     name: "BlogDetails",
-//     icon: null,
-//     showInNavbar: false,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-//   {
-//     path: "/contact",
-//     name: "Contact",
-//     showInNavbar: true,
-//     icon: null,
-//     protected: false,
-//     role: ["user", "admin"],
-//   },
-// <<<<<<< Updated upstream
-// =======
-//   {
-//     path: "/services",
-//     name: "Services",
-//     showInNavbar: true,
-//     icon: null,
-//   },
-//   {
-//     path: "/blogs",
-//     name: "BlogsSettings",
-//     showInNavbar: true,
-//     icon: null,
-//   },
-// >>>>>>> Stashed changes
-
-//   // ----- Dashboard (flat structure) -----
-//   {
-//     path: "/dashboard",
-//     name: "Dashboard",
-//     layout: "DashboardLayout",
-//     showInNavbar: false,
-//   },
-//   {
-//     path: "/dashboard/services",
-//     name: "Services",
-//     layout: "DashboardLayout",
-//     showInNavbar: false,
-//     icon: null,
-//   },
-//   {
-//     path: "/dashboard/blogs",
-//     name: "BlogsSettings",
-//     layout: "DashboardLayout",
-//     showInNavbar: false,
-//     icon: null,
-//   },
-
-//   // 🔹 New Dashboard Gallery Route
-//   {
-//     path: "/dashboard/gallery",
-//     name: "GallerySettings",
-//     layout: "DashboardLayout",
-//     showInNavbar: false,
-//     icon: null,
-//   },
-// ];
-
 export const routes = [
   {
     path: "/",
@@ -171,7 +39,6 @@ export const routes = [
     protected: false,
     role: ["user", "admin"],
   },
-
   {
     path: "/projects",
     name: "Project",
@@ -180,8 +47,16 @@ export const routes = [
     protected: false,
     role: ["user", "admin"],
   },
+  {
+    path: "/admin/in",
+    name: "Login",
+    icon: null,
+    showInNavbar: false,
+    protected: true,
+    role: ["user", "admin"],
+  },
 
-  // 🔹 New Gallery Routes
+  // New Gallery Routes
   {
     path: "/gallery",
     name: "Gallery",
@@ -224,14 +99,7 @@ export const routes = [
     role: ["user", "admin"],
   },
 
-
   // ----- Dashboard (flat structure) -----
-  // {
-  //   path: "/dashboard",
-  //   name: "Dashboard",
-  //   layout: "DashboardLayout",
-  //   showInNavbar: false,
-  // },
 
   {
     path: "/dashboard/blogs",
@@ -241,7 +109,7 @@ export const routes = [
     icon: null,
   },
 
-  // 🔹 New Dashboard Gallery Route
+  // New Dashboard Gallery Route
   {
     path: "/dashboard/gallery",
     name: "Gallery",
@@ -249,14 +117,14 @@ export const routes = [
     showInNavbar: false,
     icon: null,
   },
-   {
+  {
     path: "/dashboard/projects",
     name: "ProjectSettings",
     layout: "DashboardLayout",
     showInNavbar: false,
     icon: null,
   },
-    {
+  {
     path: "/dashboard/services",
     name: "Services",
     layout: "DashboardLayout",
