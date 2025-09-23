@@ -82,9 +82,8 @@
 
 // export default FormsLayout;
 
-
-import { forwardRef } from "react";
 import { motion } from "framer-motion";
+import { forwardRef } from "react";
 import { LuSend } from "react-icons/lu";
 
 const FormsLayout = forwardRef(({ fields, onSubmit, submitLabel = "Submit", disabled }, ref) => {
@@ -98,7 +97,7 @@ const FormsLayout = forwardRef(({ fields, onSubmit, submitLabel = "Submit", disa
     <motion.form
       ref={ref} // forward ref to the form
       onSubmit={handleSubmit}
-      className="mx-auto w-full max-w-md space-y-4 rounded-xl px-4 py-5 shadow-xl "
+      className="mx-auto w-full max-w-md space-y-4 rounded-xl px-4 py-5 shadow-xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
     >
@@ -147,8 +146,9 @@ const FormsLayout = forwardRef(({ fields, onSubmit, submitLabel = "Submit", disa
       <button
         type="submit"
         disabled={disabled} // disable button while submitting
-        className={`flex w-full items-center justify-center gap-2 rounded-md px-4 py-4 font-semibold text-white transition ${disabled ? "cursor-not-allowed bg-gray-500" : "hover:opacity-90"
-          }`}
+        className={`flex w-full items-center justify-center gap-2 rounded-md px-4 py-4 font-semibold text-white transition ${
+          disabled ? "cursor-not-allowed bg-gray-500" : "hover:opacity-90"
+        }`}
         style={{
           background: disabled
             ? "#6B7280"
@@ -163,4 +163,3 @@ const FormsLayout = forwardRef(({ fields, onSubmit, submitLabel = "Submit", disa
 });
 
 export default FormsLayout;
-
