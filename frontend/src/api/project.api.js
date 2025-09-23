@@ -64,3 +64,20 @@ export const deleteProject = async (id) => {
         throw err.response?.data || new Error("Failed to delete project");
     }
 };
+
+export const updateProjectImage = async (projectId, imageFile) => {
+    try {
+        if (!imageFile) throw new Error("Image file is required");
+        const formData = new FormData();
+        formData.append("image", imageFile);
+        const response = await client.patch(`/project/${projectId}/image`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data", // ✅ required for multer
+            },
+        });
+        return response.data;
+    } catch (err) {
+        throw err.response?.data || new Error("Failed to update project image");
+    }
+};
+

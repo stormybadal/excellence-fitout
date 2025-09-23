@@ -26,7 +26,7 @@ import {
 const router = Router();
 
 // Public routes
-router.route("/").post(verifyJwt, uploadSingle("image"), validate(createBlogSchema), create);
+router.route("/").post( uploadSingle("image"), validate(createBlogSchema), create);
 router.route("/").get(fetchAll);
 
 router.route("/:id").get(fetch);
@@ -36,7 +36,7 @@ router
   .route("/:id")
   .patch(validate(updateBlogInfoSchema), updateInfo)
   .delete(remove);
-router.route("/:id/image").patch(verifyJwt, uploadSingle("image"), updateImage);
-router.route("/:id/publish").patch(verifyJwt, validate(updateBlogPublishSchema), updatePublish);
+router.route("/:id/image").patch(uploadSingle("image"), updateImage);
+router.route("/:id/publish").patch(validate(updateBlogPublishSchema), updatePublish);
 
 export default router;

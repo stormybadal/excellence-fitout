@@ -2,6 +2,8 @@ import { useState } from "react";
 import Button from "../components/ui/Button";
 import { useInfiniteGallery } from "../hook/galleryProject";
 import { createGalleryImage, deleteGalleryImage } from "../api/gallery.api";
+import {toast} from 'react-hot-toast';
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Gallery() {
   const [open, setOpen] = useState(false);
@@ -13,6 +15,7 @@ export default function Gallery() {
     preview: null,
   });
 
+    const queryClient = useQueryClient();
   // Infinite gallery query
 const { 
   data, 
@@ -22,13 +25,9 @@ const {
   isFetchingNextPage 
 } = useInfiniteGallery({ limit: 12 });
 
-console.log("gallery data", data);
 
 // Flatten pages correctly
 const images = data?.pages.flatMap((page) => page.data.entries) || [];
-
-console.log("flattened images", images);
-
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -53,6 +52,9 @@ console.log("flattened images", images);
       fd.append("image", formData.image);
 
       await createGalleryImage(fd);
+      toast.success("Image uploaded successfully!");
+      queryClient.invalidateQueries(["gallery"]);
+
       setOpen(false);
       setFormData({ image: null, preview: null });
     } catch (err) {
@@ -63,6 +65,8 @@ console.log("flattened images", images);
   const confirmDelete = async () => {
     try {
       if (selectedImage?._id) await deleteGalleryImage(selectedImage._id);
+      toast.success("Image deleted successfully!");
+      queryClient.invalidateQueries(["gallery"]);
       setDeleteConfirm(false);
       setSelectedImage(null);
     } catch (err) {

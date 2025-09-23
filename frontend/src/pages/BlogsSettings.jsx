@@ -331,8 +331,9 @@ import { useState, useEffect} from "react";
 import Button from "../components/ui/Button";
 import { useBlogs } from "../hook/useBlogs";
 import axios from "axios";
-import { createBlog, updateBlog, deleteBlog } from "../api/blog.api";
+import { createBlog, updateBlog, deleteBlog, updateBlogImage,publishBlog } from "../api/blog.api";
 import { toast, Toaster} from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function BlogSetting() {
   const [open, setOpen] = useState(false);
@@ -348,8 +349,9 @@ const [formData, setFormData] = useState({
   isPublished: true,
 });
 
-
   const [search, setSearch] = useState("");
+
+  const queryClient = useQueryClient();
 
   // blogs data with pagination
   const {
@@ -400,8 +402,22 @@ const [formData, setFormData] = useState({
   const handleTagsChange = (e) =>
     setFormData({ ...formData, tags: e.target.value.split(",") });
 
-  const handleTogglePublished = () =>
-    setFormData({ ...formData, isPublished: !formData.isPublished });
+const handleTogglePublished = async () => {
+  try {
+    // Optimistically update the UI
+    const newStatus = !formData.isPublished;
+    setFormData({ ...formData, isPublished: newStatus });
+
+    // Call API
+    const response = await publishBlog(editing._id, newStatus);
+    toast.success(response.message || `Blog ${newStatus ? "published" : "unpublished"} successfully!`);
+  } catch (err) {
+    // Revert UI if API fails
+    setFormData({ ...formData, isPublished: formData.isPublished });
+    toast.error(err.message || "Failed to update publish status");
+  }
+};
+
 
   // Open modal for add
   const openAddModal = () => {
@@ -442,38 +458,46 @@ const handleSubmit = async () => {
     formPayload.append("title", formData.title);
     formPayload.append("content", formData.content);
     formPayload.append("isPublished", formData.isPublished);
-    formPayload.append("tags", formData.tags.join(","));
+    formPayload.append("image", formData.image); // append only if new image selected
+    formData.tags.forEach(tag => formPayload.append("tags[]", tag));
 
-    // Only append file if user selected a new one
-    if (formData.image instanceof File) {
-      formPayload.append("image", formData.image);
-    }
-
-    const formDataObj = Object.fromEntries(formPayload.entries());
-// console.log(formDataObj);
-//     console.log("Submitting form with data:", formData);
     if (editing) {
-      await updateBlog(editing._id, formPayload);
-      toast.success("Blog updated successfully!");
+      if (formData.image instanceof File) {
+        const imgRes = await updateBlogImage(editing._id, formData.image);
+        if (imgRes?.success !== false) toast.success("Blog image updated successfully!");
+      }
+
+      const updateRes = await updateBlog(editing._id, {
+        title: formData.title,
+        content: formData.content,
+        tags: formData.tags,
+        isPublished: formData.isPublished,
+      });
+
+      if (updateRes?.success !== false) toast.success("Blog updated successfully!");
     } else {
-      await createBlog(formPayload);
-     toast.success("Blog created successfully!");
+      const createRes = await createBlog(formPayload);
+      if (createRes?.success !== false) toast.success("Blog created successfully!");
     }
 
+    queryClient.invalidateQueries(["blogs"]);
     setOpen(false);
-     setEditing(null);
-    // optionally refresh your blog list
+    setEditing(null);
   } catch (err) {
     console.error(err);
-    toast.error(err.message || "Something went wrong!");
+    toast.error(err.response?.data?.message || err.message || "Something went wrong!");
   }
 };
+
 
 
   // Delete
   const confirmDelete = async () => {
     try {
-      await axios.delete(`/api/blogs/${editing._id}`);
+      await deleteBlog(editing._id);
+      toast.success("Blog deleted successfully!");
+      queryClient.invalidateQueries(["blogs"]);
+      // optionally refresh your blog list
       setDeleteConfirm(false);
       setEditing(null);
     } catch (err) {
@@ -652,38 +676,58 @@ const handleSubmit = async () => {
                 onChange={handleTagsChange}
                 className="w-full rounded-md border px-3 py-2 text-sm"
               />
-             <input
-                type="file"
-                name="image"
-                onChange={handleFileChange}
-                className="w-full rounded-md border px-3 py-2 text-sm"
-              />
 
-              {preview && (
-                <img
-                  src={preview}
-                  alt="Preview"
-                  className="mt-2 w-32 h-32 object-cover rounded"
+
+              {/* File input for new image */}
+                <input
+                  type="file"
+                  name="image"
+                  onChange={handleFileChange}
+                  className="w-full rounded-md border px-3 py-2 text-sm"
                 />
+
+              {editing && editing.image && !preview && (
+                <div className="mb-3">
+                  <p className="text-sm font-medium">Current Image:</p>
+                  <img
+                    src={editing.image}
+                    alt="Current"
+                    className="mt-1 w-32 h-32 object-cover rounded"
+                  />
+                </div>
               )}
 
+                {/* Show preview if new image selected */}
+                {preview && (
+                  <div className="mt-3">
+                    <p className="text-sm font-medium">New Image Preview:</p>
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="mt-1 w-32 h-32 object-cover rounded"
+                    />
+                  </div>
+                )}
+
               {/* Toggle for Published */}
-             <div className="flex items-center gap-2">
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.isPublished}
-                  onChange={handleTogglePublished}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 
-                                peer-focus:ring-2 peer-focus:ring-blue-300 
-                                transition-colors duration-200"></div>
-                <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full 
-                                peer-checked:translate-x-5 transition-transform duration-200"></div>
-              </label>
-              <span className="text-sm select-none">Published</span>
-            </div>
+<div className="flex items-center gap-2">
+  <label className="relative inline-flex items-center cursor-pointer">
+    <input
+      type="checkbox"
+      checked={formData.isPublished}
+      onChange={handleTogglePublished} // calls async API
+      className="sr-only peer"
+    />
+    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 
+                    peer-focus:ring-2 peer-focus:ring-blue-300 
+                    transition-colors duration-200"></div>
+    <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full 
+                    peer-checked:translate-x-5 transition-transform duration-200"></div>
+  </label>
+  <span className="text-sm select-none">
+    {formData.isPublished ? "Published" : "Unpublished"}
+  </span>
+</div>
 
             </div>
             <div className="flex justify-end gap-2 mt-4">

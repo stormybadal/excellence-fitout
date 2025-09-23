@@ -25,6 +25,8 @@ import { blogRepo } from "../repositories/blog.repo.js";
 
 // Create new blog
 export const create = asyncHandler(async (req, res) => {
+  console.log("req.body", req.body);
+  console.log("req.file", req.file);
   if (!req.file) {
     throw new ApiError(400, "Image is missing. Please upload a valid image and try again.");
   }
@@ -97,6 +99,12 @@ export const updateInfo = asyncHandler(async (req, res) => {
 export const updatePublish = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { isPublished } = req.body;
+console.log("id", id); 
+  console.log("isPublished", isPublished);
+
+  if (typeof isPublished !== "boolean") {
+    throw new ApiError(400, "isPublished must be a boolean.");
+  }
 
   const updatedBlog = await blogRepo.update(id, { isPublished });
 
