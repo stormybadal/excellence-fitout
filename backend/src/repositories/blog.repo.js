@@ -31,6 +31,10 @@ export class BlogRepo {
     return await this.model.findByIdAndDelete(id);
   }
 
+  async countDocuments() {
+    return await this.model.countDocuments();
+  }
+
   async findAll({ page = 1, limit = 10 }) {
     const skip = (page - 1) * limit;
 

@@ -6,6 +6,7 @@ import cors from "cors";
 
 // Routers
 import authRouter from "./routes/auth.route.js";
+import dashboardRouter from "./routes/dashboard.route.js";
 import blogRouter from "./routes/blog.route.js";
 import serviceRouter from "./routes/service.route.js";
 import projectRouter from "./routes/project.route.js";
@@ -43,6 +44,7 @@ app.use(cookieParser());
 
 // Routes declaration
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/dashboard", dashboardRouter);
 app.use("/api/v1/blog", blogRouter);
 app.use("/api/v1/service", serviceRouter);
 app.use("/api/v1/project", projectRouter);

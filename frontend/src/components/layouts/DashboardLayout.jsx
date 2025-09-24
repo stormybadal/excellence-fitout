@@ -37,7 +37,7 @@ import { Suspense } from "react";
 import { Outlet } from "@tanstack/react-router";
 import Loading from "../ui/Loading";
 import Sidebar from "./dashboard/Sidebar";
-import Header from "./dashboard/Header";
+
 import Loader from "../../utils/Loader";
 
 const DashboardLayout = () => {
@@ -54,8 +54,7 @@ const DashboardLayout = () => {
         <Sidebar />
 
         <div className="flex flex-col flex-1">
-          <Header />
-          <main className="flex-1 pt-16">
+          <main className="flex-1 pt-5 md:ml-64">
             <Outlet />
           </main>
         </div>

@@ -148,7 +148,7 @@ const handleSubmit = async () => {
   return (
     <div className="p-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+      <div className="flex flex-col  pt-4 sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <h2 className="text-3xl font-bold">Projects</h2>
         <div className="flex gap-3">
           <input
