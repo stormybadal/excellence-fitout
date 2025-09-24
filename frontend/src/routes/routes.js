@@ -100,7 +100,13 @@ export const routes = [
   },
 
   // ----- Dashboard (flat structure) -----
-
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    layout: "DashboardLayout",
+    showInNavbar: false,
+    icon: null,
+  },
   {
     path: "/dashboard/blogs",
     name: "BlogsSettings",

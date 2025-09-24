@@ -31,6 +31,10 @@ export class GalleryRepo {
     return await this.model.findByIdAndDelete(id);
   }
 
+  async countDocuments() {
+    return await this.model.countDocuments();
+  }
+
   // Fetch all images with pagination
   async findAll({ page = 1, limit = 10 } = {}) {
     const skip = (page - 1) * limit;

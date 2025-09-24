@@ -77,7 +77,7 @@ const images = data?.pages.flatMap((page) => page.data.entries) || [];
   return (
     <div className="p-4">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center pt-4 justify-between mb-6">
         <h2 className="text-3xl font-bold">Gallery</h2>
         <Button onClick={openAddModal}>+ Add Image</Button>
       </div>

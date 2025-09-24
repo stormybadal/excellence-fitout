@@ -514,7 +514,7 @@ const handleSubmit = async () => {
     <div className="p-4">
       <Toaster position="top-center"reverseOrder={false} />
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+      <div className="flex flex-col pt-4 sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <h2 className="text-3xl font-bold">Blog Settings</h2>
         <div className="flex flex-col sm:flex-row gap-3 mb-4 mt-2">
           <input
