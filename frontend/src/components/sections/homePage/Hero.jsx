@@ -1,5 +1,6 @@
 import React from "react";
 import homeHeroVideo from "../../../assets/homePage/homeHeroVideo.mp4";
+import broucher from "../../../assets/homePage/Excellence_Interior_Renovation_&_Construction_Brochure-2025.pdf";
 
 const Hero = () => {
     return (
@@ -45,10 +46,10 @@ const Hero = () => {
 
                     <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
                         <a
-                            href="#contact"
+                            href={broucher}
                             className="group relative inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-4 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
                         >
-                            <span className="relative z-10">Get Free Quote</span>
+                            <span className="relative z-10">Download Brochure</span>
                             <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-yellow-400 to-orange-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                         </a>
                         <a
