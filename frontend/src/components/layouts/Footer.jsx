@@ -25,7 +25,7 @@ const Footer = () => {
               <FaInstagram />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/excellence-technical-services-l-l-c-890206387/"
               className="hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-800 p-2 rounded-full transition-all"
             >
               <FaLinkedin />
@@ -62,9 +62,22 @@ const Footer = () => {
               <span className="text-orange-500">📞</span>
               <a href="tel:+971501234567" className="hover:text-orange-500 transition-all">+971552146089</a>
             </li>
-            <li className="flex items-center space-x-2">
+            {/* <li className="flex items-center space-x-2">
               <span className="text-orange-500">📧</span>
               <a href="mailto:info@excellenceinteriors.com" className="hover:text-orange-500 transition-all">info@excellenceinteriors.com</a>
+                <a href="mailto:excellenceservices2024@gmail.com" className="hover:text-orange-500 transition-all">excellenceservices2024@gmail.com</a>
+            </li> */}
+
+            <li className="flex items-start space-x-2">
+              <span className="text-orange-500">📧</span>
+              <div className="flex flex-col space-y-1">
+                <a href="mailto:info@excellenceinteriors.com" className="hover:text-orange-500 transition-all">
+                  info@excellenceinteriors.com
+                </a>
+                <a href="mailto:excellenceservices2024@gmail.com" className="hover:text-orange-500 transition-all">
+                  excellenceservices2024@gmail.com
+                </a>
+              </div>
             </li>
             <li className="flex items-center space-x-2">
               <span className="text-orange-500">⚡</span>

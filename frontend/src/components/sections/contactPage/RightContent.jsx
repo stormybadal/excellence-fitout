@@ -13,7 +13,7 @@ function RightContent() {
       icon: <IoMail className="text-2xl text-white" />,
       iconBg: "bg-gradient-to-r from-blue-400 to-blue-600",
       title: "Email",
-      lines: ["info@excellenceinteriors.com"],
+      lines: ["info@excellenceinteriors.com", "excellenceservices2024@gmail.com"],
       tagline: "We respond within 2 hours.",
     },
     {
@@ -27,7 +27,7 @@ function RightContent() {
       icon: <IoAlarmOutline className="text-2xl text-white" />,
       iconBg: "bg-gradient-to-r from-amber-400 to-amber-600",
       title: "Working Hours",
-      lines: ["Mon-Fri: 8:00 AM - 6:00 PM", "Sat: 9:00 AM - 4:00 PM"],
+      lines: ["Mon-Sat: 8:00 AM - 6:00 PM"],
       tagline: " Emergency services 24/7.",
     },
   ];

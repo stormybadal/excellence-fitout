@@ -1,4 +1,5 @@
 import React from "react";
+import homepageAboutBg from "../../../assets/homePage/homepageAboutBg.jpg";
 
 
 const About = () => {
@@ -115,7 +116,7 @@ const About = () => {
                     <div className="relative">
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                             <img
-                                src="https://picsum.photos/seed/about-construction/600/800"
+                                src={homepageAboutBg}
                                 className="h-[600px] w-full object-cover"
                                 alt="About Excellence Fit-out - Construction team at work"
                             />
