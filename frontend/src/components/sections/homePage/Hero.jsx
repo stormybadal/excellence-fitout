@@ -67,11 +67,11 @@ const Hero = () => {
                     <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-gray-300">
                         <div className="flex items-center">
                             <div className="mr-2 h-1 w-8 bg-yellow-400"></div>
-                            <span>12+ Years Experience</span>
+                            <span>5+ Years Experience</span>
                         </div>
                         <div className="flex items-center">
                             <div className="mr-2 h-1 w-8 bg-yellow-400"></div>
-                            <span>350+ Projects Completed</span>
+                            <span>50+ Projects Completed</span>
                         </div>
                         <div className="flex items-center">
                             <div className="mr-2 h-1 w-8 bg-yellow-400"></div>
