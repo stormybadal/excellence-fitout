@@ -29,7 +29,7 @@ const Footer = () => {
               <FaInstagram />
             </a>
             <a
-              href="https://www.linkedin.com/in/excellence-technical-services-l-l-c-890206387/"
+              href="https://www.linkedin.com/in/excellence-interior-and-construction-llc-890206387/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-800 p-2 rounded-full transition-all"
