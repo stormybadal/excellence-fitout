@@ -14,24 +14,32 @@ const Footer = () => {
           <div className="flex space-x-6 text-2xl">
             <a
               href="https://www.facebook.com/profile.php?id=61581460251945"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 p-2 rounded-full transition-all"
             >
               <FaFacebook />
             </a>
             <a
               href="https://www.instagram.com/excellence6089/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:bg-gradient-to-r hover:from-pink-500 hover:to-red-500 p-2 rounded-full transition-all"
             >
               <FaInstagram />
             </a>
             <a
               href="https://www.linkedin.com/in/excellence-technical-services-l-l-c-890206387/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-800 p-2 rounded-full transition-all"
             >
               <FaLinkedin />
             </a>
             <a
               href="https://www.pinterest.com/excellenceservices2024/?actingBusinessId=1075727198402691955"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-500 p-2 rounded-full transition-all"
             >
               <FaPinterest />
