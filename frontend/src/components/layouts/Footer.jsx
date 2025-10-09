@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaPinterest } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -13,13 +13,13 @@ const Footer = () => {
           </p>
           <div className="flex space-x-6 text-2xl">
             <a
-              href="#"
+              href="https://www.facebook.com/profile.php?id=61581460251945"
               className="hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 p-2 rounded-full transition-all"
             >
               <FaFacebook />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/excellence6089/"
               className="hover:bg-gradient-to-r hover:from-pink-500 hover:to-red-500 p-2 rounded-full transition-all"
             >
               <FaInstagram />
@@ -31,10 +31,10 @@ const Footer = () => {
               <FaLinkedin />
             </a>
             <a
-              href="#"
+              href="https://www.pinterest.com/excellenceservices2024/?actingBusinessId=1075727198402691955"
               className="hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-500 p-2 rounded-full transition-all"
             >
-              <FaTwitter />
+              <FaPinterest />
             </a>
           </div>
         </div>
